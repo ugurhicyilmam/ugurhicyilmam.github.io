@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bir yazılımcının notları...</title>
-    <link>https://you.github.io/index.xml</link>
+    <link>https://ugurhicyilmam.github.io/index.xml</link>
     <description>Recent content on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
     <lastBuildDate>Mon, 30 Jan 2017 16:27:31 +0300</lastBuildDate>
-    <atom:link href="https://you.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ugurhicyilmam.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Hello Dünya!</title>
-      <link>https://you.github.io/blog/hello-world/</link>
+      <link>https://ugurhicyilmam.github.io/blog/hello-world/</link>
       <pubDate>Mon, 30 Jan 2017 16:27:31 +0300</pubDate>
       
-      <guid>https://you.github.io/blog/hello-world/</guid>
+      <guid>https://ugurhicyilmam.github.io/blog/hello-world/</guid>
       <description>&lt;p&gt;Bloğun hazırlanması devam ediyor.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>projects</title>
-      <link>https://you.github.io/fixed/projects/</link>
+      <link>https://ugurhicyilmam.github.io/fixed/projects/</link>
       <pubDate>Tue, 17 Jan 2017 11:35:42 +0300</pubDate>
       
-      <guid>https://you.github.io/fixed/projects/</guid>
+      <guid>https://ugurhicyilmam.github.io/fixed/projects/</guid>
       <description>&lt;p&gt;This page contains my projects&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Hakkında</title>
-      <link>https://you.github.io/fixed/about/</link>
+      <link>https://ugurhicyilmam.github.io/fixed/about/</link>
       <pubDate>Tue, 17 Jan 2017 10:37:50 +0300</pubDate>
       
-      <guid>https://you.github.io/fixed/about/</guid>
+      <guid>https://ugurhicyilmam.github.io/fixed/about/</guid>
       <description>&lt;p&gt;This page is about me&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://you.github.io/about-this-site/</link>
+      <link>https://ugurhicyilmam.github.io/about-this-site/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/about-this-site/</guid>
+      <guid>https://ugurhicyilmam.github.io/about-this-site/</guid>
       <description>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
-    &lt;link rel=&#34;canonical&#34; href=&#34;https://you.github.io/colophon&#34;/&gt;
+    &lt;link rel=&#34;canonical&#34; href=&#34;https://ugurhicyilmam.github.io/colophon&#34;/&gt;
     &lt;meta http-equiv=&#34;content-type&#34; content=&#34;text/html; charset=utf-8&#34;/&gt;
     &lt;meta http-equiv=&#34;refresh&#34; content=&#34;0;url=/colophon&#34;/&gt;
   &lt;/head&gt;
@@ -58,14 +58,14 @@
     
     <item>
       <title></title>
-      <link>https://you.github.io/posts/</link>
+      <link>https://ugurhicyilmam.github.io/posts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/posts/</guid>
+      <guid>https://ugurhicyilmam.github.io/posts/</guid>
       <description>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
-    &lt;link rel=&#34;canonical&#34; href=&#34;https://you.github.io/blog&#34;/&gt;
+    &lt;link rel=&#34;canonical&#34; href=&#34;https://ugurhicyilmam.github.io/blog&#34;/&gt;
     &lt;meta http-equiv=&#34;content-type&#34; content=&#34;text/html; charset=utf-8&#34;/&gt;
     &lt;meta http-equiv=&#34;refresh&#34; content=&#34;0;url=/blog&#34;/&gt;
   &lt;/head&gt;
@@ -75,14 +75,14 @@
     
     <item>
       <title></title>
-      <link>https://you.github.io/writing/</link>
+      <link>https://ugurhicyilmam.github.io/writing/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://you.github.io/writing/</guid>
+      <guid>https://ugurhicyilmam.github.io/writing/</guid>
       <description>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
-    &lt;link rel=&#34;canonical&#34; href=&#34;https://you.github.io/posts&#34;/&gt;
+    &lt;link rel=&#34;canonical&#34; href=&#34;https://ugurhicyilmam.github.io/posts&#34;/&gt;
     &lt;meta http-equiv=&#34;content-type&#34; content=&#34;text/html; charset=utf-8&#34;/&gt;
     &lt;meta http-equiv=&#34;refresh&#34; content=&#34;0;url=/posts&#34;/&gt;
   &lt;/head&gt;
