@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on Bir yazılımcının notları...</title>
+    <link>https://you.github.io/blog/index.xml</link>
+    <description>Recent content in Blog on Bir yazılımcının notları...</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>TR</language>
+    <lastBuildDate>Mon, 30 Jan 2017 16:27:31 +0300</lastBuildDate>
+    <atom:link href="https://you.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hello Dünya!</title>
+      <link>https://you.github.io/blog/hello-world/</link>
+      <pubDate>Mon, 30 Jan 2017 16:27:31 +0300</pubDate>
+      
+      <guid>https://you.github.io/blog/hello-world/</guid>
+      <description>&lt;p&gt;Bloğun hazırlanması devam ediyor.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
