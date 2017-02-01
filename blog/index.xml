@@ -6,16 +6,88 @@
     <description>Recent content in Blog on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
-    <lastBuildDate>Mon, 30 Jan 2017 16:27:31 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 31 Jan 2017 17:52:07 +0300</lastBuildDate>
     <atom:link href="https://ugurhicyilmam.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Hello Dünya!</title>
-      <link>https://ugurhicyilmam.github.io/blog/hello-world/</link>
-      <pubDate>Mon, 30 Jan 2017 16:27:31 +0300</pubDate>
+      <title>Anki Metodu</title>
+      <link>https://ugurhicyilmam.github.io/blog/anki-metodu/</link>
+      <pubDate>Tue, 31 Jan 2017 17:52:07 +0300</pubDate>
       
-      <guid>https://ugurhicyilmam.github.io/blog/hello-world/</guid>
-      <description>&lt;p&gt;Bloğun hazırlanması devam ediyor.&lt;/p&gt;
+      <guid>https://ugurhicyilmam.github.io/blog/anki-metodu/</guid>
+      <description>
+
+&lt;p&gt;Programlama geniş bir alan ve hiç şüphe yok ki uzmanlaşmak uzun zaman alıyor. Eğer benim gibi bu alana geç başlamış ve üstüne üstlük sabırsızsanız, bu yazı tam sizlik.&lt;/p&gt;
+
+&lt;p&gt;Programlamaya ilk başladığım yılda pek çok kitap okudum, video izledim, kütüphane öğrendim. Yılın sonunda üzülerek farkettim ki, öğrendiklerimin %90&amp;rsquo;ı buharlaşmış. Aklımda yalnızca sık kullandığım %10&amp;rsquo;luk kısım kalmış.&lt;/p&gt;
+
+&lt;p&gt;Unutmanın önüne geçebilmek için ilk olarak defter tutmaya başladım. Planım belirli aralıklarla tuttuğum notların üzerinden geçerek unutmayı en aza indirmekti. Not tutarak harcadığım onlarca verimsiz saatten sonra acı gerçeği farkettim: bu notları asla tekrar etmeyecektim.&lt;/p&gt;
+
+&lt;p&gt;Not tutmak ile en önemli sorun, unutmamak için tüm notları tekrar etmek zorunda olmanız.&lt;/p&gt;
+
+&lt;p&gt;Not tutup tekrar etmek yerine, sadece unuttuğum notları tekrar etmemi sağlayacak bir sistem olup olmadığını merak ettim ve araştırmaya koyuldum. Küçük ama işini mükemmel yapan sihirli uygulamayı bulmam uzun zaman almadı: &lt;strong&gt;Anki&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;anki-nedir&#34;&gt;Anki Nedir?&lt;/h2&gt;
+
+&lt;p&gt;Anki&amp;rsquo;nin çalışma prensibi çok basit: bilgi kartları oluşturuyorsunuz ve Anki de bunları size belirli aralıklarla soruyor. Kolay bilinen kartları daha uzun aralıklarla, zorları ise daha sık aralıklarla soruyor.&lt;/p&gt;
+
+&lt;p&gt;Anki&amp;rsquo;nin, masaüstü uygulaması, web sitesi ve hem iOS hem de Android için mobil uygulamaları mevcut. Üstelik beleş!&lt;/p&gt;
+
+&lt;p&gt;Beleş derken, ne yazık ki iOS kullanıcıları olarak burada da kazıklanıyoruz. Diğer tüm platformlar ücretsizken, iOS üzerinde kullanmak 65₺ (fiyat güncel değildir).&lt;/p&gt;
+
+&lt;h2 id=&#34;çalışma-yöntemim&#34;&gt;Çalışma Yöntemim&lt;/h2&gt;
+
+&lt;p&gt;Anki ile çalışmaya başladıktan sonra, kendime ihtiyaçlarıma uygun bir çalışma rutini geliştirmem biraz zaman aldı. Rutinimi geliştirirken, konuyla ilgili bazı kaynaklardan da faydalandım. Örneğin &lt;a href=&#34;https://www.jackkinsella.ie/articles/janki-method&#34;&gt;Janki Method&lt;/a&gt; bunlardan birisi.&lt;/p&gt;
+
+&lt;p&gt;Uzun süren deneme yanılmalardan sonra, kendime göre bazı Anki ilkeleri geliştirdim. Bu ilkeleri düzgün bir şekilde uyguladığımda, yöntemin başarılı bir şekilde çalıştığını gördüm.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;İlke 1: Her sabah Anki yap.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Bir gün bile ara verdiğimde, Anki yapmaya dair motivasyonumun dramatik bir şekilde düştüğünü farkettiğimden bu yana, devamlılığın en önemli şeylerden biri olduğuna ikna oldum. Bu nedenle, günlük rutinimde ilk yaptığım iş, kartlarımı tekrar etmek oluyor.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;İlke 2: Kartların amacı belli bir kavramı hatırlatmak olsun, kendini zorlamak değil.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Anki destelerinin amacı unutmayı en aza indirgemek, sizi sınamak değil. Bu nedenle, eklenen kartların mümkün olduğunca basit olması gerekiyor.&lt;/p&gt;
+
+&lt;p&gt;Linux&amp;rsquo;ta ufak bir komutu hatırlamak için eklediğim örnek bir kart şu şekilde:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ugurhicyilmam.github.io/post_images/example-simple-card.PNG&#34; alt=&#34;Example linux card&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dediğim gibi, bir kartın amacı sizi sınamak değil, yalnızca bir kavramı hatırlamanıza yardımcı olmak. Bir kartı cevaplandırmak eğer 3-4 saniyeden fazla sürüyorsa, bilin ki kartlarınız fazla zor.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;İlke 3: Her şeyi hatırlamaya çalışma, yalnızca önemli şeyleri hatırlamaya çalış.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Programlama pratik bir alan. Pratikte kullanmayacağınız bir bilginin destenizde yer alması manasız. Ben genelde bir kitaptan öğrenirken, aynı zamanda önemli gördüğüm şeyler için Anki kartı oluşturuyorum. Daha sonra deste yeterince büyüdüğünde tekrar etmeye başlıyorum. Belli bir zaman sonra tekrar ettiğim bir karttaki bilgiye, hiçbir zaman ihtiyaç duymadığımı farkedersem, acımadan kartı imha ediyorum.&lt;/p&gt;
+
+&lt;h2 id=&#34;anki-nin-kullanımı&#34;&gt;Anki&amp;rsquo;nin Kullanımı&lt;/h2&gt;
+
+&lt;p&gt;Bu bölüme kadar geldiğinize göre Anki&amp;rsquo;ye bir şans verme kararı aldınız. Güzel, kendiniz için doğru bir adım attınız. İyi programcılara ihtiyacımız var.&lt;/p&gt;
+
+&lt;h5 id=&#34;birinci-adım&#34;&gt;Birinci adım&lt;/h5&gt;
+
+&lt;p&gt;İlk yapmanız gereken şey &lt;a href=&#34;https://ankiweb.net&#34;&gt;Ankiweb&lt;/a&gt; sitesine girip bir hesap oluşturmak. Bu hesap, kartlarınızın bulutta depolanmasına yarayacak.&lt;/p&gt;
+
+&lt;h5 id=&#34;ikinci-adım&#34;&gt;İkinci adım&lt;/h5&gt;
+
+&lt;p&gt;Hesabınızı oluşturduktan sonra, &lt;a href=&#34;https://apps.ankiweb.net/&#34;&gt;şu adrese&lt;/a&gt; giderek Anki&amp;rsquo;nin masaüstü uygulamasını indirin. Uygulamayı kurup, hesabınıza giriş yapın.&lt;/p&gt;
+
+&lt;h5 id=&#34;üçüncü-adım&#34;&gt;Üçüncü adım&lt;/h5&gt;
+
+&lt;p&gt;Mobil uygulamayı yükleyin. Android için &lt;a href=&#34;https://play.google.com/store/apps/details?id=com.ichi2.anki&amp;amp;hl=tr&#34;&gt;AnkiDroid&lt;/a&gt;, iOS için &lt;a href=&#34;https://itunes.apple.com/us/app/ankimobile-flashcards/id373493387?mt=8&#34;&gt;AnkiMobile Flashcards&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;iOS uygulaması ne yazık ki ücretli ve açıkçası biraz tuzlu. Ancak sorun yok, kart tekrarı için masaüstü uygulamasını ve web sitesini kullanabilirsiniz.&lt;/p&gt;
+
+&lt;h5 id=&#34;dördüncü-adım&#34;&gt;Dördüncü adım&lt;/h5&gt;
+
+&lt;p&gt;Bir deste oluşturun ve kart oluşturmaya başlayın.&lt;/p&gt;
+
+&lt;p&gt;Kart oluşturma ekranı şu şekilde:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ugurhicyilmam.github.io/post_images/anki-add-card.PNG&#34; alt=&#34;Add card to anki&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ön tarafa soru, arka tarafa cevabı geliyor. Sorunun kavramına göre etiket eklemek de daha sonra belli bir kategorideki kartları, ayrı bir desteye taşırken yardımcı oluyor.&lt;/p&gt;
+
+&lt;p&gt;Ayrıca keşfetmemin zaman aldığı, Anki destelerine görsel eklemek ile ilgili ufak bir bilgi vereyim. Windows&amp;rsquo;un snipping tool&amp;rsquo;u ile ekranın belli bir kısmını seçtiğinizde, seçilen resim otomatik olarak clipboard içine alınıyor. Anki&amp;rsquo;de &amp;ldquo;Ön&amp;rdquo; veya &amp;ldquo;Arka&amp;rdquo; alanlarından birine bu resmi eklemek için, direkt olarak Ctrl+V yapabilirsiniz.&lt;/p&gt;
 </description>
     </item>
     
