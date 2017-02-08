@@ -6,8 +6,52 @@
     <description>Recent content on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
-    <lastBuildDate>Tue, 31 Jan 2017 17:52:07 +0300</lastBuildDate>
+    <lastBuildDate>Tue, 07 Feb 2017 17:23:17 +0300</lastBuildDate>
     <atom:link href="https://ugurhicyilmam.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>tembel olmak</title>
+      <link>https://ugurhicyilmam.github.io/blog/tembel-olmak/</link>
+      <pubDate>Tue, 07 Feb 2017 17:23:17 +0300</pubDate>
+      
+      <guid>https://ugurhicyilmam.github.io/blog/tembel-olmak/</guid>
+      <description>&lt;p&gt;Tembellik, toplum genelinde olumsuz bir özellik olarak değerlendirilir. Genel inanış, çok çalışmanın başarı için kaçınılmaz olduğu yönündedir.  Aile içinde bile, &amp;ldquo;Ruşen amcanın oğlu Sedat&amp;rdquo; gibi çalışkan insanlar övülürken, ebeveynlerimiz tembelliğimizden dolayı bizlere çemkirir.&lt;/p&gt;
+
+&lt;p&gt;Sıkça yapılan bir hata, tembellik ile sorumsuzluğu karıştırmak&amp;hellip; Aslında, tembel olmak hiçbir şey yapmamak anlamına gelmiyor, sadece bir işi halletmenin daha kolay bir yolunu bulup, çok fazla çaba harcamaktan kaçınmak anlamına geliyor.&lt;/p&gt;
+
+&lt;p&gt;İş programlamaya geldiğinde, tembellik özellikle avantajlı oluyor.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Kod yazmaktan kaçınmak&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Tembel bir insan olarak, gereksiz kod yazmaktan özellikle kaçınmaya çalışıyorum.&lt;/p&gt;
+
+&lt;p&gt;Öncelikle, kod yazmak çok kolay bir iş değil. Birkaç metot içeren basit bir uygulama yazmak bile, azımsanmayacak miktarda bir odaklanma gerektiriyor. Özellikle proje büyüdükçe, eklenen her satır kodun uygulamayı bozma ihtimali var. Kod yazmak, mümkün mertebe kaçınılması gereken, nahoş bir aktivite.&lt;/p&gt;
+
+&lt;p&gt;Kod yazmaktan kaçınmak için, öncelikle sorunu iyi değerlendirmek gerekiyor. Müşteriden bir istek geldiğinde ya da siz bir eksiklik fark edip, ekleme yapmanız gerektiğini düşündüğünüzde önce bir soluklanmanız ve sorunu çözmek için kod yazmak zorunda mısınız diye düşünmeniz gerekiyor. Pek çok defa, müşteri tarafından çok ciddi sorun olduğu düşünülen konuları, biraz düşünme ve ikna yöntemiyle hiç kod yazmadan çözdüğüm olmuştur.&lt;/p&gt;
+
+&lt;p&gt;Bir diğer yöntem ise, kodu güzel modüllere ayırmak ve gelecekte oluşturduğunuz modülleri, etkili bir şekilde kullanmak. Bu nedenle kodunuzu güzel bir şekilde modüllere ayırmalı, yazılmış kodları mümkün olduğunca yeniden kullanmaya odaklanmalısınız.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Doküman: sıkıcı ama gerekli&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Kod yazıldıktan sonra birkaç ay içinde, o kodun ne yaptığını hatırlayan kimse kalmıyor. Bu süre uzadıkça, o kodu yazan kişinin kimliği bile anonimleşiyor. Bir gün bu tuhaf, anonimleşmiş, artık kimsenin hatırlamadığı kod parçaları hakkında, bir değişiklik isteği, hata ya da bir soru geliyor. Bu problemin muhatabı olan zat-ı şahanelerinin ise, dokümansız yabana gönderdiği bu kod parçasından dolayı başı belaya giriyor.&lt;/p&gt;
+
+&lt;p&gt;Böyle bir durumla karşılaştığınızda harcayacağınız çabayı bir düşünün. Kod okumak, kod yazmaktan bile zor bir iş ve tembel bir yazılımcı bunu minimize etmek zorunda.&lt;/p&gt;
+
+&lt;p&gt;Bunu ne yazık ki birkaç acı tecrübeyle öğrendim ve uzun zamandır yazdığım her &amp;ldquo;public&amp;rdquo; fonksiyon için, kesinlikle doküman yazmaktayım. Hatta çoğu zaman fonksiyonu yazmadan önce dokümanını hazırlıyorum ki daha sonra şeytana uyup, doküman yazmamazlık etmeyeyim.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ona minik testler yazın&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Yeni bir proje veya özellik üzerinde çalışıyorsunuz. Ve bam! Sizin geliştirdiğiniz bir özellik düzgün çalışmıyor. Elbette geliştirdikten sonra her şey düzgün çalışıyor mu diye test etmiştiniz ve sorun olmadığını görüp, kodunuzu göndermiştiniz. Ancak, projenin &amp;ldquo;dıdısının dıdısında&amp;rdquo;, sizin geliştirdiğiniz kısımla tamamen alakasız olan bilinmeyen bir köşede yapılmış ufak bir değişiklik, sizin kodunuzu patlattı.&lt;/p&gt;
+
+&lt;p&gt;Bu tarz sorunları engellemek için dâhiyane bir çözüm var: Test otomasyonu. Eğer yazdığınız özellikleri %100 kapsayan testleriniz varsa yapılan değişiklikler nedeniyle bozulan özellikler anında tespit edilebilecek, çözülebilecek ve sizin başınızı ağrıtmayacak.&lt;/p&gt;
+
+&lt;p&gt;Kod içerisinde hata bulmak ve düzeltmek, özellikle zaman geçtikçe daha da zorlaşır. Hatanın yapıldığı andan çözümüne kadar geçen zaman, hatanın doğru bir şekilde çözülememesi ihtimalini arttırır. Bu nedenle kod ilk yazıldığı anda mümkün olduğunca farklı açıdan test edilmeli ve hata yapma olasılığı en aza indirilmelidir. Bu sizi gelecekte çok daha fazla çabadan kurtaracaktır.&lt;/p&gt;
+
+&lt;p&gt;Bu tavsiyeler, fi tarihinde okuduğum bir &lt;em&gt;Quora&lt;/em&gt; cevabından esinlenildi ancak fi tarihinde olduğundan dolayı kaynak gösteremeyeceğim. Arada bir &amp;ldquo;sorumsuzluk&amp;rdquo; edip uygulamasam da, genellikle uyguluyorum ve beni ciddi baş ağrılarından kurtardığını söyleyebilirim.&lt;/p&gt;
+
+&lt;p&gt;Bu yazıyı daha önce de bloğumda yayınlamıştım. Bir gözden geçirip, yeni bloğumda tekrar yayınlıyorum.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Anki Metodu</title>
@@ -103,7 +147,7 @@
 
 &lt;p&gt;İlk bilgisayarımı edindiğim 12 yaşımdan bu yana, programlama hobi anlamında her zaman hayatımda yer almış olsa da bu işi profesyonel anlamda yapmaya başlamam yalnızca 3 yıllık bir deneyim.&lt;/p&gt;
 
-&lt;p&gt;Lisans eğitimimi Yıldız Teknik Üniversitesi İktisat bölümünde aldım. Birkaç ufak iş deneyiminden sonra bu alanın bana göre olmadığını fark edip, hobimi meslek edinme kararı aldım. Yani, 23 yaşında, işsiz, kararsız ve bolca boş vakti olan bir insan olarak, 6 yaşında okula ilk adım attığım andan itibaren başlayarak 23 yaşıma kadar sürmüş &amp;ldquo;17&amp;rdquo; yıllık bir aradan sonra, kendi öğrenimimi kendi elime almaya karar verdim.&lt;/p&gt;
+&lt;p&gt;Lisans eğitimimi Yıldız Teknik Üniversitesi İktisat bölümünde aldım. Birkaç ufak iş deneyiminden sonra bu alanın bana göre olmadığını fark edip, hobimi meslek edinme kararı aldım. Yani, 23 yaşında, işsiz, kararsız ve bolca boş vakti olan bir insan olarak, 6 yaşında okula ilk adım attığım andan itibaren başlayarak 23 yaşıma kadar sürmüş &amp;ldquo;17&amp;rdquo; yıllık bir aradan sonra, kendi öğrenimimi kendi elime almaya karar verdim. O andan itibaren kendimi programlama alanında geliştirmeye başladım.&lt;/p&gt;
 
 &lt;p&gt;Programlama alanında profesyonel anlamda ilerleme kararı almamın üzerinden 3 yıl geçti ve son 1 yıldır da aktif olarak sektörün içinde çalışıyorum.&lt;/p&gt;
 
