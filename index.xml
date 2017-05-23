@@ -69,7 +69,7 @@
 
 &lt;p&gt;HashMap içinde modCount adında bir alan HashMap üzerinde yapılan tüm değişikliklerin sayısını tutar. Benzer bir şekilde, HashMap&amp;rsquo;in &amp;ldquo;iterator&amp;rdquo; objesinde de iteratorModCount adında bir alan iterator ilk oluşturulduğundaki modCount değerini tutar. Her iterasyonda iteratorModCount ve modCount değerleri karşılaştırılır ve değerler farklı olduğunda ConcurrentModificationException fırlatılır.&lt;/p&gt;
 
-&lt;h4 id=&#34;hashset&#34;&gt;HashSet&lt;/h4&gt;
+&lt;h5 id=&#34;hashset&#34;&gt;HashSet&lt;/h5&gt;
 
 &lt;p&gt;Java&amp;rsquo;nın HashSet implementasyonu aslında HashMap implementasyonunun biraz özelleştirilmiş hali olduğundan bu yazı da onu da açıklamak yerinde olacak.&lt;/p&gt;
 
@@ -86,7 +86,7 @@
 
 &lt;p&gt;Eklenen değerler bir HashMap&amp;rsquo;e &lt;em&gt;key&lt;/em&gt; olarak eklenir. &lt;em&gt;Value&lt;/em&gt; olarak ise PRESENT alanında tutulan, boş bir obje eklenir. Bu obje HashSet içerisinde hiç kullanılmaz ve &lt;em&gt;static&lt;/em&gt; bir alanda tutulur, yani uygulama içerisindeki tüm HashSet&amp;rsquo;lerde bu değer aynıdır.&lt;/p&gt;
 
-&lt;h4 id=&#34;kaynakça&#34;&gt;Kaynakça&lt;/h4&gt;
+&lt;h5 id=&#34;kaynakça&#34;&gt;Kaynakça&lt;/h5&gt;
 
 &lt;p&gt;Ayrıntılı bilgi için aşağıdaki kaynaklara bakabilirsiniz:&lt;/p&gt;
 
