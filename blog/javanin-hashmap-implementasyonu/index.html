@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="TR">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Panik yapma">
+
+<base href="https://ugurhicyilmam.github.io/">
+<title>
+
+
+     Java&#39;nın HashMap İmplementasyonu 
+
+</title>
+<link rel="canonical" href="https://ugurhicyilmam.github.io/blog/javanin-hashmap-implementasyonu/">
+
+
+<script type="text/javascript">
+    var baseURL = 'https:\/\/ugurhicyilmam.github.io\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/reset.css?t=1495527448">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/pygments.css?t=1495527448">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/main.css?t=1495527448">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="https://ugurhicyilmam.github.io/img/favicon.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://ugurhicyilmam.github.io/"><img class="avatar" src="https://ugurhicyilmam.github.io/img/profile.jpg" /></a>
+            
+            <a href="https://ugurhicyilmam.github.io/"><div class="name">Uğur Hiçyılmam</div></a>
+            
+              <h3 class="self-intro">thanks for all the fish</h3>
+            
+            <nav>
+                <ul>
+                    <a href="https://ugurhicyilmam.github.io/"><li>Anasayfa</li></a>
+                    <a href="https://ugurhicyilmam.github.io/fixed/about/"><li>Kimdir?</li></a>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/github.svg" alt="github" /></a>
+        
+
+        
+            <a href="//twitter.com/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+            <a href="//linkedin.com/in/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:ugurhicyilmam@gmail.com"><img class="icon" src="https://ugurhicyilmam.github.io/img/email.svg" alt="email" /></a>
+        
+
+        
+            <a href="https://ugurhicyilmam.github.io/index.xml"><img class="icon" src="https://ugurhicyilmam.github.io/img/rss.svg" alt="rss" /></a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Java&#39;nın HashMap İmplementasyonu
+
+</div>
+
+                    <div class="initials"><a href="https://ugurhicyilmam.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Mon May 22 2017 11:48:39 EET">
+                        22.05.2017
+                    </div>
+                    <div class="reading-time"><div class="middot"></div>3 dakikalık okuma </div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p><strong>HashMap</strong>, Java içerisindeki önemli konulardan biri ve bu nedenle teknik görüşmelerde karşılaşmanız yüksek ihtimal. Bu yazıda kısaca HashMap mantığıyla giriş yaptıktan sonra Java&rsquo;daki implementasyonunu açıklayacağım.</p>
+
+<p>İlk olarak biraz analoji kullanarak ve teknik detaylara girmeden konuyu ele alalım. HashMap, pek çok bölmeye sahip ve her bölmeye belli tip eşyaların girebileceği bir dolaba benzetilebilir. Örneğin bir ayakkabı bölmesine, bir kıyafet bölmesine, bir de kitap bölmesine sahip bir dolap&hellip; Dolaba bir ayakkabı koyacağınız zaman ayakkabı bölmesine koymak zorundasınız. Ayakkabıyı alacağınız zaman da ayakkabı bölmesinden almalısınız. Böylece ayakkabıyı yerleştirmek de kolaylaşıyor, bulmak da&hellip;</p>
+
+<p>Ayakkabı bölmesinde birden fazla ayakkabı koymak zorunda olduğunuzda ne oluyor?</p>
+
+<p>Bu sorunu çözmek için en basit yöntem  ayakkabıları üst üste, aynı bölme içine yığmak. Herhangi bir ayakkabıyı almak istediğinizde de, yığıntının içinden istediğiniz ayakkabıyı arayarak bulmak. Java&rsquo;nın HashMap implementasyonunda da benzer bir yaklaşım var.</p>
+
+<p>Yazının bu noktadan sonrası biraz daha teknik olarak devam edecek.</p>
+
+<p>Java&rsquo;nın HashMap implementasyonu aslında bir dizi <strong>Linked List</strong>&lsquo;ten (bağlı liste) oluşuyor. <em>Linked List</em> içerisindeki düğümler HashMap&rsquo;e eklenen <em>key-value</em> (anahtar-değer) ikililerini ve diğer düğümlere olan bağlantıları tutuyor.</p>
+
+<p><em>Linked List</em> içerisindeki her düğüm <em>Entry</em> sınıfının objelerinden oluşuyor:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+     <span class="kd">final</span> <span class="n">K</span> <span class="n">key</span><span class="o">;</span>
+     <span class="kd">final</span> <span class="kt">int</span> <span class="n">hash</span><span class="o">;</span>
+     <span class="n">V</span> <span class="n">value</span><span class="o">;</span>
+     <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">next</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Her <em>Entry</em> objesinin içinde key-value ikilileri var. Görüldüğü gibi key değişkeni <em>final</em> olarak tanımlanmış. Bu eklenen bir kaydın <em>key</em> değerinin değiştirilemeyeceği anlamına geliyor. Öte yandan <em>value</em> değeri değiştirilebiliyor.</p>
+
+<p>Her Entry objesi ayrıca next adında, bir sonraki Entry objesine işaret eden bir alana sahip. Bu sayede Entry objeleri aynı zamanda bir Linked List gibi davranıyor.</p>
+
+<p>Son olarak, &ldquo;hash&rdquo; alanı, key alanının hash değerini tutuyor. Bu değer, Entry objesinin dizi içerisindeki yerini tespit etmede kullanılılyor. Birden fazla <em>Entry</em> aynı <em>key</em> değerine sahip olduğunda <em>next</em> alanıyla birbirlerine bağlanarak bir <em>Linked List</em> meydana getiriyor.</p>
+
+<p>HashMap sınıfının içine göz atınca aşağıdaki değerleri görüyoruz:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">DEFAULT_INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">16</span><span class="o">;</span>
+<span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">DEFAULT_LOAD_FACTOR</span> <span class="o">=</span> <span class="mf">0.75F</span><span class="o">;</span>
+<span class="kd">transient</span> <span class="kt">int</span> <span class="n">modCount</span><span class="o">;</span>
+<span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">TREEIFY_THRESHOLD</span> <span class="o">=</span> <span class="mi">8</span><span class="o">;</span>
+</code></pre></div>
+
+
+<p>HashMap oluştururken <strong>default constructor</strong> kullanıldığında, bu değerler kullanılıyor. Bu değerlere göre yeni bir HashMap oluşturduğunuzda, dizinin boyutu 16 olarak belirleniyor. HashMap içindeki toplam eleman sayısının dizi boyutuna oranı 0.75&rsquo;i geçtiğinde ise eski dizinin iki katı boyutunda yeni bir dizi oluşturuluyor.</p>
+
+<h5 id="java-8-değişiklikleri">Java 8 Değişiklikleri</h5>
+
+<p>HashMap, <em>key</em> ararken O(1) performansı sağlasa da HashMap içindeki pek çok <em>key</em> alanının <em>hash</em> değeri aynıysa bu performans düşmeye başlar, çünkü bu durumda <em>key</em> değerleri Linked List&rsquo;ler içinde aranmaya başlanır. Linked List&rsquo;in arama performansı da O(n) olduğundan, O(1) değerimiz O(n)&lsquo;e doğru yakınlaşmaya başlar.</p>
+
+<p>Bu sorunu çözebilmek için, belli bir <em>threshold</em> değeri aşıldıktan sonra Linked List yerine <em>Binary Tree</em> kullanılır ve bu sayede en kötü performans O(n)&lsquo;den O(logn)&lsquo;e düşürülür. Tabii bunun için <em>key</em> değerlerinin karşılaştırılabilir olması gerekir. Aksi durumda korkunç O(n) performansına geri döneriz.</p>
+
+<h5 id="concurrentmodificationexception">ConcurrentModificationException</h5>
+
+<p><em>ConcurrentModificationException</em> multi-threaded bir uygulamada karşılaşabileceğiniz bir hata&hellip; Threadlerden birinde HashMap üzerinde iterasyon devam ederken, bir başka thread içinde HashMap üzerinde değişiklik yapıldığında ortaya çıkar.</p>
+
+<p>HashMap içinde modCount adında bir alan HashMap üzerinde yapılan tüm değişikliklerin sayısını tutar. Benzer bir şekilde, HashMap&rsquo;in &ldquo;iterator&rdquo; objesinde de iteratorModCount adında bir alan iterator ilk oluşturulduğundaki modCount değerini tutar. Her iterasyonda iteratorModCount ve modCount değerleri karşılaştırılır ve değerler farklı olduğunda ConcurrentModificationException fırlatılır.</p>
+
+<h4 id="hashset">HashSet</h4>
+
+<p>Java&rsquo;nın HashSet implementasyonu aslında HashMap implementasyonunun biraz özelleştirilmiş hali olduğundan bu yazı da onu da açıklamak yerinde olacak.</p>
+
+<p>HashSet aslında eklenen değerleri tutmak için HashMap kullanır:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">PRESENT</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="kd">private</span> <span class="kd">transient</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">E</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">PRESENT</span><span class="o">)==</span><span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Eklenen değerler bir HashMap&rsquo;e <em>key</em> olarak eklenir. <em>Value</em> olarak ise PRESENT alanında tutulan, boş bir obje eklenir. Bu obje HashSet içerisinde hiç kullanılmaz ve <em>static</em> bir alanda tutulur, yani uygulama içerisindeki tüm HashSet&rsquo;lerde bu değer aynıdır.</p>
+
+<h4 id="kaynakça">Kaynakça</h4>
+
+<p>Ayrıntılı bilgi için aşağıdaki kaynaklara bakabilirsiniz:</p>
+
+<p><a href="http://www.javamadesoeasy.com/2015/02/hashmap-custom-implementation.html">http://www.javamadesoeasy.com/2015/02/hashmap-custom-implementation.html</a>
+<a href="https://dzone.com/articles/hashmap-performance">https://dzone.com/articles/hashmap-performance</a>
+<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashMap.java">http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashMap.java</a>
+<a href="http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashSet.java">http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashSet.java</a></p>
+
+                <br>
+                <p><a href="https://ugurhicyilmam.github.io/">Geri dön</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ugurhicyilmam';
+    var disqus_identifier = 'https:\/\/ugurhicyilmam.github.io\/blog\/javanin-hashmap-implementasyonu\/';
+    var disqus_title = 'Java\x27nın HashMap İmplementasyonu';
+    var disqus_url = 'https:\/\/ugurhicyilmam.github.io\/blog\/javanin-hashmap-implementasyonu\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62045338-3', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+  
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/go.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+

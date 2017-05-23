@@ -6,8 +6,96 @@
     <description>Recent content on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
-    <lastBuildDate>Tue, 07 Feb 2017 17:23:17 +0300</lastBuildDate>
+    <lastBuildDate>Mon, 22 May 2017 11:48:39 +0300</lastBuildDate>
     <atom:link href="https://ugurhicyilmam.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Java&#39;nın HashMap İmplementasyonu</title>
+      <link>https://ugurhicyilmam.github.io/blog/javanin-hashmap-implementasyonu/</link>
+      <pubDate>Mon, 22 May 2017 11:48:39 +0300</pubDate>
+      
+      <guid>https://ugurhicyilmam.github.io/blog/javanin-hashmap-implementasyonu/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;HashMap&lt;/strong&gt;, Java içerisindeki önemli konulardan biri ve bu nedenle teknik görüşmelerde karşılaşmanız yüksek ihtimal. Bu yazıda kısaca HashMap mantığıyla giriş yaptıktan sonra Java&amp;rsquo;daki implementasyonunu açıklayacağım.&lt;/p&gt;
+
+&lt;p&gt;İlk olarak biraz analoji kullanarak ve teknik detaylara girmeden konuyu ele alalım. HashMap, pek çok bölmeye sahip ve her bölmeye belli tip eşyaların girebileceği bir dolaba benzetilebilir. Örneğin bir ayakkabı bölmesine, bir kıyafet bölmesine, bir de kitap bölmesine sahip bir dolap&amp;hellip; Dolaba bir ayakkabı koyacağınız zaman ayakkabı bölmesine koymak zorundasınız. Ayakkabıyı alacağınız zaman da ayakkabı bölmesinden almalısınız. Böylece ayakkabıyı yerleştirmek de kolaylaşıyor, bulmak da&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;Ayakkabı bölmesinde birden fazla ayakkabı koymak zorunda olduğunuzda ne oluyor?&lt;/p&gt;
+
+&lt;p&gt;Bu sorunu çözmek için en basit yöntem  ayakkabıları üst üste, aynı bölme içine yığmak. Herhangi bir ayakkabıyı almak istediğinizde de, yığıntının içinden istediğiniz ayakkabıyı arayarak bulmak. Java&amp;rsquo;nın HashMap implementasyonunda da benzer bir yaklaşım var.&lt;/p&gt;
+
+&lt;p&gt;Yazının bu noktadan sonrası biraz daha teknik olarak devam edecek.&lt;/p&gt;
+
+&lt;p&gt;Java&amp;rsquo;nın HashMap implementasyonu aslında bir dizi &lt;strong&gt;Linked List&lt;/strong&gt;&amp;lsquo;ten (bağlı liste) oluşuyor. &lt;em&gt;Linked List&lt;/em&gt; içerisindeki düğümler HashMap&amp;rsquo;e eklenen &lt;em&gt;key-value&lt;/em&gt; (anahtar-değer) ikililerini ve diğer düğümlere olan bağlantıları tutuyor.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Linked List&lt;/em&gt; içerisindeki her düğüm &lt;em&gt;Entry&lt;/em&gt; sınıfının objelerinden oluşuyor:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+     &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;K&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+     &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+     &lt;span class=&#34;n&#34;&gt;V&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+     &lt;span class=&#34;n&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Her &lt;em&gt;Entry&lt;/em&gt; objesinin içinde key-value ikilileri var. Görüldüğü gibi key değişkeni &lt;em&gt;final&lt;/em&gt; olarak tanımlanmış. Bu eklenen bir kaydın &lt;em&gt;key&lt;/em&gt; değerinin değiştirilemeyeceği anlamına geliyor. Öte yandan &lt;em&gt;value&lt;/em&gt; değeri değiştirilebiliyor.&lt;/p&gt;
+
+&lt;p&gt;Her Entry objesi ayrıca next adında, bir sonraki Entry objesine işaret eden bir alana sahip. Bu sayede Entry objeleri aynı zamanda bir Linked List gibi davranıyor.&lt;/p&gt;
+
+&lt;p&gt;Son olarak, &amp;ldquo;hash&amp;rdquo; alanı, key alanının hash değerini tutuyor. Bu değer, Entry objesinin dizi içerisindeki yerini tespit etmede kullanılılyor. Birden fazla &lt;em&gt;Entry&lt;/em&gt; aynı &lt;em&gt;key&lt;/em&gt; değerine sahip olduğunda &lt;em&gt;next&lt;/em&gt; alanıyla birbirlerine bağlanarak bir &lt;em&gt;Linked List&lt;/em&gt; meydana getiriyor.&lt;/p&gt;
+
+&lt;p&gt;HashMap sınıfının içine göz atınca aşağıdaki değerleri görüyoruz:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DEFAULT_INITIAL_CAPACITY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;float&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DEFAULT_LOAD_FACTOR&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.75F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;transient&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;modCount&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TREEIFY_THRESHOLD&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;HashMap oluştururken &lt;strong&gt;default constructor&lt;/strong&gt; kullanıldığında, bu değerler kullanılıyor. Bu değerlere göre yeni bir HashMap oluşturduğunuzda, dizinin boyutu 16 olarak belirleniyor. HashMap içindeki toplam eleman sayısının dizi boyutuna oranı 0.75&amp;rsquo;i geçtiğinde ise eski dizinin iki katı boyutunda yeni bir dizi oluşturuluyor.&lt;/p&gt;
+
+&lt;h5 id=&#34;java-8-değişiklikleri&#34;&gt;Java 8 Değişiklikleri&lt;/h5&gt;
+
+&lt;p&gt;HashMap, &lt;em&gt;key&lt;/em&gt; ararken O(1) performansı sağlasa da HashMap içindeki pek çok &lt;em&gt;key&lt;/em&gt; alanının &lt;em&gt;hash&lt;/em&gt; değeri aynıysa bu performans düşmeye başlar, çünkü bu durumda &lt;em&gt;key&lt;/em&gt; değerleri Linked List&amp;rsquo;ler içinde aranmaya başlanır. Linked List&amp;rsquo;in arama performansı da O(n) olduğundan, O(1) değerimiz O(n)&amp;lsquo;e doğru yakınlaşmaya başlar.&lt;/p&gt;
+
+&lt;p&gt;Bu sorunu çözebilmek için, belli bir &lt;em&gt;threshold&lt;/em&gt; değeri aşıldıktan sonra Linked List yerine &lt;em&gt;Binary Tree&lt;/em&gt; kullanılır ve bu sayede en kötü performans O(n)&amp;lsquo;den O(logn)&amp;lsquo;e düşürülür. Tabii bunun için &lt;em&gt;key&lt;/em&gt; değerlerinin karşılaştırılabilir olması gerekir. Aksi durumda korkunç O(n) performansına geri döneriz.&lt;/p&gt;
+
+&lt;h5 id=&#34;concurrentmodificationexception&#34;&gt;ConcurrentModificationException&lt;/h5&gt;
+
+&lt;p&gt;&lt;em&gt;ConcurrentModificationException&lt;/em&gt; multi-threaded bir uygulamada karşılaşabileceğiniz bir hata&amp;hellip; Threadlerden birinde HashMap üzerinde iterasyon devam ederken, bir başka thread içinde HashMap üzerinde değişiklik yapıldığında ortaya çıkar.&lt;/p&gt;
+
+&lt;p&gt;HashMap içinde modCount adında bir alan HashMap üzerinde yapılan tüm değişikliklerin sayısını tutar. Benzer bir şekilde, HashMap&amp;rsquo;in &amp;ldquo;iterator&amp;rdquo; objesinde de iteratorModCount adında bir alan iterator ilk oluşturulduğundaki modCount değerini tutar. Her iterasyonda iteratorModCount ve modCount değerleri karşılaştırılır ve değerler farklı olduğunda ConcurrentModificationException fırlatılır.&lt;/p&gt;
+
+&lt;h4 id=&#34;hashset&#34;&gt;HashSet&lt;/h4&gt;
+
+&lt;p&gt;Java&amp;rsquo;nın HashSet implementasyonu aslında HashMap implementasyonunun biraz özelleştirilmiş hali olduğundan bu yazı da onu da açıklamak yerinde olacak.&lt;/p&gt;
+
+&lt;p&gt;HashSet aslında eklenen değerleri tutmak için HashMap kullanır:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PRESENT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;transient&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;E&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;E&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PRESENT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)==&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Eklenen değerler bir HashMap&amp;rsquo;e &lt;em&gt;key&lt;/em&gt; olarak eklenir. &lt;em&gt;Value&lt;/em&gt; olarak ise PRESENT alanında tutulan, boş bir obje eklenir. Bu obje HashSet içerisinde hiç kullanılmaz ve &lt;em&gt;static&lt;/em&gt; bir alanda tutulur, yani uygulama içerisindeki tüm HashSet&amp;rsquo;lerde bu değer aynıdır.&lt;/p&gt;
+
+&lt;h4 id=&#34;kaynakça&#34;&gt;Kaynakça&lt;/h4&gt;
+
+&lt;p&gt;Ayrıntılı bilgi için aşağıdaki kaynaklara bakabilirsiniz:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.javamadesoeasy.com/2015/02/hashmap-custom-implementation.html&#34;&gt;http://www.javamadesoeasy.com/2015/02/hashmap-custom-implementation.html&lt;/a&gt;
+&lt;a href=&#34;https://dzone.com/articles/hashmap-performance&#34;&gt;https://dzone.com/articles/hashmap-performance&lt;/a&gt;
+&lt;a href=&#34;http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashMap.java&#34;&gt;http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashMap.java&lt;/a&gt;
+&lt;a href=&#34;http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashSet.java&#34;&gt;http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashSet.java&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Tembel Olmak</title>
