@@ -6,8 +6,60 @@
     <description>Recent content in Blog on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
-    <lastBuildDate>Mon, 22 May 2017 11:48:39 +0300</lastBuildDate>
+    <lastBuildDate>Fri, 26 May 2017 15:51:10 +0300</lastBuildDate>
     <atom:link href="https://ugurhicyilmam.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Firmalar Hangi Tip Mühendisleri İşe Almak İstiyor?</title>
+      <link>https://ugurhicyilmam.github.io/blog/teknik-gelisim/</link>
+      <pubDate>Fri, 26 May 2017 15:51:10 +0300</pubDate>
+      
+      <guid>https://ugurhicyilmam.github.io/blog/teknik-gelisim/</guid>
+      <description>
+
+&lt;p&gt;Yazılım endüstrisinde çalışan herkes bir döneminde şu soruyla karşılaşıyor: kendimi nasıl geliştirmeliyim ki firmaların işe almak istediği bir mühendis haline geleyim. Bu soruyu cevaplayabilmek için teknik yeteneklerin gelişimini ve ideal mühendis tipini biraz irdelemek gerekiyor.&lt;/p&gt;
+
+&lt;p&gt;Mühendislerin yetenekleri genel olarak iki şekilde değerlendirilir: genişlik ve derinlik. Genişlik, farklı alanlar hakkında belirli bir düzeyde bilgi sahibi olmak anlamına gelirken derinlik, spesifik bir alanda çok ufak detaylara bile hakim olabilmek, o alanın zor problemlerini çözebiliyor olmak anlamına gelir.&lt;/p&gt;
+
+&lt;p&gt;İş dünyasında ideal mühendis tipinin T şekilli olduğundan bahsedilir. Yani birden fazla alanda bilgi sahibi, bir alanda ise çok ufak detaylara hakim, o alanın uzmanı olan bir mühendis ideal çalışan tipi olarak tanımlanır.&lt;/p&gt;
+
+&lt;p&gt;T şekilli bir gelişim ideal olsa da ne yazık ki çok kolay değil. Genişlik sahibi olmak çok zor değil, ne de olsa insan sıkılgan bir varlık ve farklı farklı teknolojilerle çalışmak çoğu programcının sevdiği bir şey. Öte yandan derinlik sahibi olmak çok daha zor problemlerle uzun süre uğraşmayı gerektiriyor, bu nedenle biraz daha sabır ve dayanıklılık gerektiriyor diyebiliriz.&lt;/p&gt;
+
+&lt;p&gt;Bir alanda uzmanlaşmak için gerekli olan sürenin 10 bin saat olduğundan bahsedilir. Malcolm Gladwell tarafından ortaya atılan bu süre, aynı alana odaklanılmadığında ve sürekli artan zorlukta problemlerle uğraşmadıkça doğru olmak zorunda değil. Derinlemesine bir uzmanlık için, gerçekten o alana odaklanmak gerekiyor. Ancak uzun süreli bir odaklanmanın olduğu durumlarda 10 bin saat kuralının doğruluğu iddia edilebilir.&lt;/p&gt;
+
+&lt;p&gt;Azalan verimler yasası da dikkate alınması gereken bir başka nokta. Bu yasa iktisadi bir kavram olsa da öğrenme sürecine de uyarlanabilir. Bir alanda kendinizi geliştirmeye ilk başladığınızda önünüzde öğrenecek çok fazla şey olduğundan kısa sürede çok hızlı gelişim göstermek mümkün. Ancak bu hız detaylara indikçe düşmeye başlıyor ve bir yerden sonra kişi ilerlerdiğini hiç farkedemeyecek hale geliyor.&lt;/p&gt;
+
+&lt;p&gt;Verim düştükçe tatmin azalıyor ve bununla başa çıkamayan pek çok insan vakitlerini daldan dala atlayarak harcıyor ve mesleki tatminsizlik içine düşüyor. Bununla baş edebilen az sayıda mühendis ise, gittikçe çok daha zor problemlerle başa çıkabilir hale geliyor ve alanının yıldızları arasına katılıyor.&lt;/p&gt;
+
+&lt;p&gt;Derinlik elde edebilmek için sabırla odaklanma ve çok zor problemlerle uğraşmak şart demiştik. Öte yandan daldan dala atlayarak genişlik elde etmek de mümkün değil. Sık alan değiştirme genellikle sıkılma dürtüsüyle yapıldığından, gerekli olandan ziyade daha çok eğlenceli alanlara yönelmeyle son buluyor. Bu nedenle istenen genişlik de elde edilemiyor.&lt;/p&gt;
+
+&lt;h4 id=&#34;genişlik-nasıl-elde-edilir&#34;&gt;Genişlik nasıl elde edilir?&lt;/h4&gt;
+
+&lt;p&gt;Genişlik elde edebilmek için benim uyguladığım ilke Pareto ilkesi. Bu ilkenin ilk çıkış noktası çok daha farklı olsa da hayatta pek çok alana bu ilkeyi uygulamak mümkün, teknik gelişim de kesinlikle bunlardan biri. Bu ilkeye göre, örneğin Java kodlarken kullanacağınız dil özelliklerinin %80&amp;rsquo;i,  aslında o dilin %20&amp;rsquo;sinden oluşuyor. Yani öğrendiğiniz şeylerin %20&amp;rsquo;si, aslında yapacağınız işin %80&amp;rsquo;ini oluşturuyor. Bu nedenle kendi alanınız dışındaki teknik alanlarda efektif bir öğrenme yöntemiyle o bilmeniz gereken büyük bir kısmına hakim olabilirsiniz.&lt;/p&gt;
+
+&lt;p&gt;Genişlik tabii ki sadece teknik konularla sınırlı değil. Örneğin bir banka yazılımı üzerinde çalışıyorsanız, finans sektörü ve bankacılık hakkında da bilmeniz gerekenler var. Ya da her mühendisin ortak sahip olması gereken bir yetenek olan insan ilişkileri de bu kapsamda değerlendirilebilir. Bu gibi yan alanlar için de aynı Pareto ilkesi uygulanabilir.&lt;/p&gt;
+
+&lt;p&gt;Genişlik kapsamına nelerin girdiği de önemli. Bu daha çok üzerinde çalıştığınız yazılımın diğer kısımlarıyla alakalı olmalı. Örneğin bir web sunucusu yapıyorsanız, ön yüz geliştirmeyi, DevOps ile ilgili yapılan işleri, proje yönetimi ve uygulamanın yapıldığı iş dalını da %20 (pareto) düzeyinde bilmeniz gerekiyor. Açıkçası, örneğin gömülü sistemler üzerine çalışıyorsanız web tasarımını %20 düzeyinde bilmek çok da işinize yaramayacak.&lt;/p&gt;
+
+&lt;h4 id=&#34;derinlik-nasıl-elde-edilir&#34;&gt;Derinlik nasıl elde edilir?&lt;/h4&gt;
+
+&lt;p&gt;Hali hazırda bir alanda uzmanlığınız varsa tek yapmanız gereken zaman zaman ortaya çıkan daldan dala atlama dürtünüzü bastırmak ve yaptığınız şeyi yapmaya devam etmek. Bu alanda kendinizi geliştirmek için o alanın uzmanı insanlarla iletişime geçmek, alanınızdaki kaliteli kitapları okumak ve alanınızın zor problemleriyle uğraşmak alacağınız diğer aksiyonlar olmalı.&lt;/p&gt;
+
+&lt;p&gt;Hali hazırda bir derinliğiniz yoksa buna nereden başlamalısınız? Burada bence en önemli şey gerçekten sevdiğiniz ve yetenekli olduğunuz bir alan seçmeniz. Bazı insanlar bu alanı küçük yaşta seçerek çok daha erken uzmanlaşıyor ancak bu şanslı azınlıktan olmak zorunda değilsiniz ve uzmanlık alanını seçmek için asla geç kalmış değilsiniz.&lt;/p&gt;
+
+&lt;p&gt;İlk karar vermeniz gereken ayrıntı ne tip yazılım geliştirmek istediğiniz. Web uygulamaları, mobil uygulamalar, oyunlar, gömülü sistemler, sistem yazılımları pek çok seçenekten sadece birkaçı.&lt;/p&gt;
+
+&lt;p&gt;İkinci olarak sormanız gereken soru seçtiğiniz uygulama türünün hangi kısmında çalışmak istediğiniz. Örneğin oyun endüstrisinde çalışmak istiyorsanız ve Java&amp;rsquo;ya ilgi duyuyorsanız, gerçek zamanlı Java sunucuları üzerinde çalışmak yeterince spesifik bir uzmanlık alanı.&lt;/p&gt;
+
+&lt;p&gt;Bunlar dışında bir işletim sisteminin yönetimi üzerinde uzmanlaşmak da güzel bir spesifik bir uzmanlık alanı olabilir. Örneğin, Linux sistemleri üzerine uzman olan pek çok mühendis bulabilirsiniz.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Yazılım gerçekten çok geniş bir alan ve bu anlamda doktorluk ile kıyaslanabilir. Nasıl doktorlar belli bir alanda uzman olup diğer tıp alanları hakkında yüzeysel bilgi sahibi oluyorsa, bir yazılım mühendisi de ancak bir alan seçip uzmanlaşma yoluyla mesleki başarıya ulaşabilir ve seçtiği alanda fark yaratabilir.&lt;/p&gt;
+
+&lt;p&gt;Özet olarak kendini geliştirme iki yönlü olmalı: derinlik ve genişlik. Derinlik için seçtiğiniz alanda yıllarça çalışmanız, o alanın en zor problemlerini çözmeniz, genişlik için ise bazı yan alanları en önemli yönleriyle öğrenmek gerekiyor.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Java&#39;nın HashMap İmplementasyonu</title>
