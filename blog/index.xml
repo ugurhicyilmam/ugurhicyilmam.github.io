@@ -6,8 +6,63 @@
     <description>Recent content in Blog on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
-    <lastBuildDate>Fri, 26 May 2017 15:51:10 +0300</lastBuildDate>
+    <lastBuildDate>Mon, 18 Sep 2017 19:43:57 +0300</lastBuildDate>
     <atom:link href="https://ugurhicyilmam.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Katmanlı Mimari&#39;de Paketleme Şekli</title>
+      <link>https://ugurhicyilmam.github.io/blog/katmanli-mimari-paketleme-sekli/</link>
+      <pubDate>Mon, 18 Sep 2017 19:43:57 +0300</pubDate>
+      
+      <guid>https://ugurhicyilmam.github.io/blog/katmanli-mimari-paketleme-sekli/</guid>
+      <description>&lt;p&gt;Uygulama geliştirme sürecinde verilmesi gereken önemli kararlardan biri kaynak kodları paketlere bölme şeklidir. Katmanlı mimaride genellikle uygulanan yöntem her katman için bir paket oluşturup, sınıfları bulunduğu katmanın paketine atmaktır. Katmanlı mimari anlaşılması son derece kolay bir mimari yaklaşım olup pek çok problemi çözer. Zaten bu yazı da bir katmanlı mimari eleştirisi değil. Ancak paketleri de bu katmanlı yapıya göre düzenlemek her zaman en iyi çözüm olmayabilir.&lt;/p&gt;
+
+&lt;p&gt;Katmanlı mimaride tipik olarak “_presentation_”, “_application_”, “_domain_”, “_infrastructure_” gibi katmanlar bulunur. Bu yapı pek çok “_enterprise_” uygulama için yaygın olsa da projeden projeye farklılık görülebilir. Örneğin pek çok web uygulamasında “_repository_”, “_service_”, “_controller_” gibi katmanlar bulunur.&lt;/p&gt;
+
+&lt;p&gt;Paketleri katmanlara göre oluşturduğumuzda ortaya şuna benzer bir yapı çıkar:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;com.example.repository&lt;/li&gt;
+&lt;li&gt;com.example.service&lt;/li&gt;
+&lt;li&gt;com.example.controller&lt;/li&gt;
+&lt;li&gt;com.example.model&lt;/li&gt;
+&lt;li&gt;com.example.dto&lt;/li&gt;
+&lt;li&gt;com.exampe.util&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Böyle bir paketleme son derece basit ve anlaşılabilir olsa da bazı problemler ortaya çıkarır. En başta paketler arasında ortaya çıkan aşırı bağımlılık problemi gelir. Paketler belli problemleri çözmeye odaklanmadıklarından problemin çözülebilmesi için başka paketlerle etkileşime girmelidir.&lt;/p&gt;
+
+&lt;p&gt;Ortaya çıkan bir diğer sorun uygulamadaki paket sayısının uygulama büyüdükçe büyümemesidir. Uygulama yüzlerce farklı özellik içerse de uygulamadaki paket sayısı hemen hemen sabit kalır ve paketlerin içi yüzlerce sınıf ile dolar.&lt;/p&gt;
+
+&lt;p&gt;Paketleri katmanlara göre oluşturmanın alternatifi paketleri oluştururken özellikleri göz önünde bulundurmaktır. Bu yöntemde uygulamanın belirli bir özelliğine odaklanan her sınıf aynı paket içinde toplanır.&lt;/p&gt;
+
+&lt;p&gt;Örneğin bu yapıyı kullanan &lt;strong&gt;pet-clinic&lt;/strong&gt; uygulamasındaki paket yapısı şu şekildedir:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;org.springframework.samples.petclinic.owner&lt;/li&gt;
+&lt;li&gt;org.springframework.samples.petclinic.system&lt;/li&gt;
+&lt;li&gt;org.springframework.samples.petclinic.vet&lt;/li&gt;
+&lt;li&gt;org.springframework.samples.petclinic.visit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Bu mimaride her paket kendi içinde bir bütündür ve diğer paketlere olan bağımlılığı son derece azdır. Aynı zamanda yalnızca paket isimlerine bakarak bile uygulamanın yaptığı iş hakkında kolayca fikir sahibi olunabilir.&lt;/p&gt;
+
+&lt;p&gt;Bu paketleme yöntemi ilk bakışta katmanlı yapı ile çelişiyor gibi görünse de aslında katmanlı mimari daha mikro ölçekte, her paket içinde uygulanmaya devam etmektedir.&lt;/p&gt;
+
+&lt;p&gt;Örneğin pet-clinic uygulamasındaki &amp;ldquo;&lt;em&gt;owner&lt;/em&gt;&amp;rdquo; paketinin içeriğine bir göz atalım:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Owner.java&lt;/li&gt;
+&lt;li&gt;OwnerController.java&lt;/li&gt;
+&lt;li&gt;OwnerRepository.java&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Görüldüğü gibi, katmanlı yapı aslında her paket içinde yaşamaya devam ediyor.&lt;/p&gt;
+
+&lt;p&gt;Açıkçası ben uzun süredir katmanlara göre paketleme yöntemini kullanıyordum. Son zamanlarda geliştirdiğimiz bir uygulamanın büyüklüğü artınca yukarıda bahsi geçen dezavantajları yaşamaya başladım. Biraz araştırma sonrası özelliğe göre paketleme yönteminin zaten uygulanan bir yöntem olduğunu görüp birkaç kişisel projemde bu yöntemi uyguladım. Şu ana dek karşılaştığım tek sıkıntı, uygulama içerisindeki özelliklerin tanımının her zaman kesin olmaması. Yani uygulama şu özelliklerden oluşuyor ve bunlara şu paketler karşılık geliyor demek her zaman kolay değil. Bu problem dışında, bu yöntemi uygulamanın hayatımı kolaylaştırdığını söyleyebilirim.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Firmalar Hangi Tip Mühendisleri İşe Almak İstiyor?</title>
