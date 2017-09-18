@@ -36,7 +36,7 @@
 
 &lt;p&gt;Paketleri katmanlara göre oluşturmanın alternatifi paketleri oluştururken özellikleri göz önünde bulundurmaktır. Bu yöntemde uygulamanın belirli bir özelliğine odaklanan her sınıf aynı paket içinde toplanır.&lt;/p&gt;
 
-&lt;p&gt;Örneğin bu yapıyı kullanan &lt;strong&gt;pet-clinic&lt;/strong&gt; uygulamasındaki paket yapısı şu şekildedir:&lt;/p&gt;
+&lt;p&gt;Örneğin bu yapıyı kullanan &lt;strong&gt;&lt;a href=&#34;https://github.com/spring-projects/spring-petclinic&#34;&gt;pet-clinic&lt;/a&gt;&lt;/strong&gt; uygulamasındaki paket yapısı şu şekildedir:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;org.springframework.samples.petclinic.owner&lt;/li&gt;
