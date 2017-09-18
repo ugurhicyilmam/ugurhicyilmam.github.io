@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="TR">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Panik yapma">
+
+<base href="https://ugurhicyilmam.github.io/">
+<title>
+
+
+     Katmanlı Mimari&#39;de Paketleme Şekli 
+
+</title>
+<link rel="canonical" href="https://ugurhicyilmam.github.io/blog/katmanli-mimari-paketleme-sekli/">
+
+
+<script type="text/javascript">
+    var baseURL = 'https:\/\/ugurhicyilmam.github.io\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/reset.css?t=1505753804">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/pygments.css?t=1505753804">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/main.css?t=1505753804">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="https://ugurhicyilmam.github.io/img/favicon.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://ugurhicyilmam.github.io/"><img class="avatar" src="https://ugurhicyilmam.github.io/img/profile.jpg" /></a>
+            
+            <a href="https://ugurhicyilmam.github.io/"><div class="name">Uğur Hiçyılmam</div></a>
+            
+              <h3 class="self-intro">thanks for all the fish</h3>
+            
+            <nav>
+                <ul>
+                    <a href="https://ugurhicyilmam.github.io/"><li>Anasayfa</li></a>
+                    <a href="https://ugurhicyilmam.github.io/fixed/about/"><li>Kimdir?</li></a>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/github.svg" alt="github" /></a>
+        
+
+        
+            <a href="//twitter.com/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+            <a href="//linkedin.com/in/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:ugurhicyilmam@gmail.com"><img class="icon" src="https://ugurhicyilmam.github.io/img/email.svg" alt="email" /></a>
+        
+
+        
+            <a href="https://ugurhicyilmam.github.io/index.xml"><img class="icon" src="https://ugurhicyilmam.github.io/img/rss.svg" alt="rss" /></a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Katmanlı Mimari&#39;de Paketleme Şekli
+
+</div>
+
+                    <div class="initials"><a href="https://ugurhicyilmam.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Mon Sep 18 2017 19:43:57 EET">
+                        18.09.2017
+                    </div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>Uygulama geliştirme sürecinde verilmesi gereken önemli kararlardan biri kaynak kodları paketlere bölme şeklidir. Katmanlı mimaride genellikle uygulanan yöntem her katman için bir paket oluşturup, sınıfları bulunduğu katmanın paketine atmaktır. Katmanlı mimari anlaşılması son derece kolay bir mimari yaklaşım olup pek çok problemi çözer. Zaten bu yazı da bir katmanlı mimari eleştirisi değil. Ancak paketleri de bu katmanlı yapıya göre düzenlemek her zaman en iyi çözüm olmayabilir.</p>
+
+<p>Katmanlı mimaride tipik olarak “_presentation_”, “_application_”, “_domain_”, “_infrastructure_” gibi katmanlar bulunur. Bu yapı pek çok “_enterprise_” uygulama için yaygın olsa da projeden projeye farklılık görülebilir. Örneğin pek çok web uygulamasında “_repository_”, “_service_”, “_controller_” gibi katmanlar bulunur.</p>
+
+<p>Paketleri katmanlara göre oluşturduğumuzda ortaya şuna benzer bir yapı çıkar:</p>
+
+<ul>
+<li>com.example.repository</li>
+<li>com.example.service</li>
+<li>com.example.controller</li>
+<li>com.example.model</li>
+<li>com.example.dto</li>
+<li>com.exampe.util</li>
+</ul>
+
+<p>Böyle bir paketleme son derece basit ve anlaşılabilir olsa da bazı problemler ortaya çıkarır. En başta paketler arasında ortaya çıkan aşırı bağımlılık problemi gelir. Paketler belli problemleri çözmeye odaklanmadıklarından problemin çözülebilmesi için başka paketlerle etkileşime girmelidir.</p>
+
+<p>Ortaya çıkan bir diğer sorun uygulamadaki paket sayısının uygulama büyüdükçe büyümemesidir. Uygulama yüzlerce farklı özellik içerse de uygulamadaki paket sayısı hemen hemen sabit kalır ve paketlerin içi yüzlerce sınıf ile dolar.</p>
+
+<p>Paketleri katmanlara göre oluşturmanın alternatifi paketleri oluştururken özellikleri göz önünde bulundurmaktır. Bu yöntemde uygulamanın belirli bir özelliğine odaklanan her sınıf aynı paket içinde toplanır.</p>
+
+<p>Örneğin bu yapıyı kullanan <strong>pet-clinic</strong> uygulamasındaki paket yapısı şu şekildedir:</p>
+
+<ul>
+<li>org.springframework.samples.petclinic.owner</li>
+<li>org.springframework.samples.petclinic.system</li>
+<li>org.springframework.samples.petclinic.vet</li>
+<li>org.springframework.samples.petclinic.visit</li>
+</ul>
+
+<p>Bu mimaride her paket kendi içinde bir bütündür ve diğer paketlere olan bağımlılığı son derece azdır. Aynı zamanda yalnızca paket isimlerine bakarak bile uygulamanın yaptığı iş hakkında kolayca fikir sahibi olunabilir.</p>
+
+<p>Bu paketleme yöntemi ilk bakışta katmanlı yapı ile çelişiyor gibi görünse de aslında katmanlı mimari daha mikro ölçekte, her paket içinde uygulanmaya devam etmektedir.</p>
+
+<p>Örneğin pet-clinic uygulamasındaki &ldquo;<em>owner</em>&rdquo; paketinin içeriğine bir göz atalım:</p>
+
+<ul>
+<li>Owner.java</li>
+<li>OwnerController.java</li>
+<li>OwnerRepository.java</li>
+<li>&hellip;</li>
+</ul>
+
+<p>Görüldüğü gibi, katmanlı yapı aslında her paket içinde yaşamaya devam ediyor.</p>
+
+<p>Açıkçası ben uzun süredir katmanlara göre paketleme yöntemini kullanıyordum. Son zamanlarda geliştirdiğimiz bir uygulamanın büyüklüğü artınca yukarıda bahsi geçen dezavantajları yaşamaya başladım. Biraz araştırma sonrası özelliğe göre paketleme yönteminin zaten uygulanan bir yöntem olduğunu görüp birkaç kişisel projemde bu yöntemi uyguladım. Şu ana dek karşılaştığım tek sıkıntı, uygulama içerisindeki özelliklerin tanımının her zaman kesin olmaması. Yani uygulama şu özelliklerden oluşuyor ve bunlara şu paketler karşılık geliyor demek her zaman kolay değil. Bu problem dışında, bu yöntemi uygulamanın hayatımı kolaylaştırdığını söyleyebilirim.</p>
+
+                <br>
+                <p><a href="https://ugurhicyilmam.github.io/">Geri dön</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ugurhicyilmam';
+    var disqus_identifier = 'https:\/\/ugurhicyilmam.github.io\/blog\/katmanli-mimari-paketleme-sekli\/';
+    var disqus_title = 'Katmanlı Mimari\x27de Paketleme Şekli';
+    var disqus_url = 'https:\/\/ugurhicyilmam.github.io\/blog\/katmanli-mimari-paketleme-sekli\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62045338-3', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+  
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/go.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+
