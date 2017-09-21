@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="TR">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Panik yapma">
+
+<base href="https://ugurhicyilmam.github.io/">
+<title>
+
+
+     Java I/O - Part 1 
+
+</title>
+<link rel="canonical" href="https://ugurhicyilmam.github.io/blog/java-io-p1/">
+
+
+<script type="text/javascript">
+    var baseURL = 'https:\/\/ugurhicyilmam.github.io\/';
+    var host = baseURL.substring(0, baseURL.length - 1).replace(/\//g, '');
+    if ((host === window.location.host) && (window.location.protocol !== 'https:')) {
+        window.location.protocol = 'https:';
+    }
+</script>
+
+
+
+
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/reset.css?t=1506006820">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/pygments.css?t=1506006820">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/main.css?t=1506006820">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="https://ugurhicyilmam.github.io/img/favicon.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://ugurhicyilmam.github.io/"><img class="avatar" src="https://ugurhicyilmam.github.io/img/profile.jpg" /></a>
+            
+            <a href="https://ugurhicyilmam.github.io/"><div class="name">Uğur Hiçyılmam</div></a>
+            
+              <h3 class="self-intro">thanks for all the bits</h3>
+            
+            <nav>
+                <ul>
+                    <a href="https://ugurhicyilmam.github.io/"><li>Anasayfa</li></a>
+                    <a href="https://ugurhicyilmam.github.io/fixed/about/"><li>Kimdir?</li></a>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/github.svg" alt="github" /></a>
+        
+
+        
+            <a href="//twitter.com/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+            <a href="//linkedin.com/in/ugurhicyilmam" target="_blank"><img class="icon" src="https://ugurhicyilmam.github.io/img/linkedin.svg" alt="linkedin" /></a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:ugurhicyilmam@gmail.com"><img class="icon" src="https://ugurhicyilmam.github.io/img/email.svg" alt="email" /></a>
+        
+
+        
+            <a href="https://ugurhicyilmam.github.io/index.xml"><img class="icon" src="https://ugurhicyilmam.github.io/img/rss.svg" alt="rss" /></a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Java I/O - Part 1
+
+</div>
+
+                    <div class="initials"><a href="https://ugurhicyilmam.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue Sep 19 2017 20:52:07 EET">
+                        19.09.2017
+                    </div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>Pek çok uygulamada yapılan temel iş aslında veri giriş-çıkışıdır. Bir kaynaktan veri alınır, veriyle bazı işler yapılır ve işlenen veriler çıktı olarak bir yere gönderilir. Network ile çalışan uygulamalarda da durum böyledir: Bir kaynaktan veri alınır ve başka bir kaynağa veri gönderilir. Java&rsquo;nın gelişmiş I/O yapısı sayesinde, bir dosyadan veri okumak ile başka bir sunucudan veri okumak arasında pek fark yoktur. Aynı şekilde bir dosyaya veri yazmak ile başka bir makineye veri göndermek de birbirine oldukça benzer. Bu benzerliği sağlayan yapı &ldquo;<strong>stream</strong>&rdquo; yapısıdır.</p>
+
+<p><em>Stream</em> ilk duyulduğunda karmaşık bir terim gibi gelse de aslında veri transfer eden Java sınıflarıdır. Veri almak için kullanılan stream sınıflarına <em>input stream</em>, veri çıkışı için kullanılan stream sınıflarına ise <em>output stream</em> denir. Farklı veri kaynakları için farklı stream sınıfları vardır. Örneğin dosyadan veri okumak için &ldquo;<em>FileInputStream</em>&rdquo; kullanılırken, Telnet&rsquo;e veri yazmak için &ldquo;TelnetOutputStream&rdquo; kullanılır. Ancak işin güzel yanı, tüm input stream sınıfları veri okumak için aynı temel metotları kullanırken, tüm output strem sınıfları da veri yazmak için aynı metotları kullanır.</p>
+
+<p>Farklı stream sınıfları arasındaki temel fark aslında bunların oluşturuluş şeklidir, hepsi aynı hiyerarşinin parçası olduğu için kullanılış açısından hiçbir fark yoktur. Dolayısıyla stream sınıfı oluşturulduktan sonra, hangi stream sınıfının kullanıldığı tamamen görmezden gelinebilir.</p>
+
+<p>Temel anlamda iki farklı stream var demiştik: input ve output stream. Bunları teker teker ele alalım.</p>
+
+<p><strong>Input Stream</strong></p>
+
+<p>Java&rsquo;da input stream sınıfları hiyerarşisinin tepesinde <strong>java.io.InputStream</strong> bulunur. Bu sınıf &ldquo;abstract&rdquo; olduğu için objesi oluşturulamaz ancak tüm input stream sınıfları için temel birkaç metot sağlar:</p>
+
+<ul>
+<li>public int available()</li>
+<li>public void close()</li>
+<li>public abstract int read()</li>
+<li>public int read(byte[] input)</li>
+<li>public int read(byte[] input, int offset, int length)</li>
+<li>public long skip(long n)</li>
+</ul>
+
+<p>Farklı veri kaynakları veya hedefleri için farklı stream sınıfları olsa da, hepsi aynı InputStream sınıfından türer. Dolayısıyla, bu sınıftan türeyen bütün sınıflar bu temel metotları kullanır. Örneğin bir dosyadan veri okumak için FileInputStream, bir TCP bağlantısından veri almak için java.net.SocketInputStream kullanılır, ancak bu sınıfların kullanılış şekli tamamen aynıdır.</p>
+
+<p>java.io.InputStream sınıfının en temel metodu read() metodudur. Hiçbir argüman almayan bu metot bir bayta karşılık gelen 0-255 arasında bir sayı (int) döner. Yani, her çağrılışında veri kaynağından bir bayt okur ve döner. Verinin sonuna ulaştığını ise -1 değerini dönerek belirtir.</p>
+
+<p>Örneğin aşağıdaki kod parçası bir dosyadan veriyi baytlar halinde okuyup, bu baytların binary karşılığını ekrana yazdırır:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">&quot;hello.txt&quot;</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">byteValue</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">byteValue</span> <span class="o">=</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">toBinaryString</span><span class="o">(</span><span class="n">byteValue</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Yukarıdaki örnekte bir döngü içinde teker teker baytları okuduk. Bunun yerine, InputStream&rsquo;den tüm baytları bir dizi içerisinde de isteyebiliriz:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">&quot;hello.txt&quot;</span><span class="o">);</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">byteValues</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span>
+<span class="kt">int</span> <span class="n">numberOfBytes</span> <span class="o">=</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">byteValues</span><span class="o">)</span>
+</code></pre></div>
+
+
+<p>Bu örnekte, dosyayı oluşturan tüm baytları bir dizi içerisine attık. read() metodundan cevap olarak ise okuduğu baytların sayısını aldık.</p>
+
+<p>Eğer dosyada 5 bayttan daha fazla değer varsa, InputStream yazabildiği kadarını yazar. Benzer şekilde, eğer dosyada 5 bayttan daha az değer varsa, yalnızca olan değerleri yazar.</p>
+
+<p>Son read() metodunda diziye yazılacak bayt sayısını ve bu baytların dizinin neresinden itibaren yazılacağını ayarlayabiliriz.</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">&quot;hello.txt&quot;</span><span class="o">);</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">byteValues</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">8</span><span class="o">]</span>
+<span class="kt">int</span> <span class="n">numberOfBytes</span> <span class="o">=</span> <span class="n">inputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">byteValues</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
+</code></pre></div>
+
+
+<p>Örneğin yukarıdaki örnekte dizinin ilk üç değeri boş (0) ve ardından gelen 5 değer dosyadan okunan bayt değerleri olacaktır. Metot cevap olarak ise yazılan baytların sayısını döner. Bu metot hata kontrolü için güzel bir mekanizma sağladığı için oldukça faydalıdır: Önce kaynaktan gelen baytları bir dizi içine okumayı denersin, sonra başarılı şekilde okuyabildiğin baytların sayısını okuman gerekenle karşılaştırırsın. Eğer arada bir fark varsa başarılı bir okuyabildiğin bayt sayısı kadar <em>offset</em> verip, tekrar yazmayı denersin. read() metodu bu durumda yazmaya kaldığı yerden devam eder.</p>
+
+<p>Nadiren de olsa, okunacak bazı baytların atlanması gerektiği durumlarda <strong>skip()</strong> metodu kullanılabilir.</p>
+
+<p>Son olarak InputStream ile yapılan iş bittiğinde mutlaka <strong>close()</strong> metodu çağrılarak InputStream için ayrılmış kaynakların (açık dosyalar, dinlenen portlar gibi) serbest bırakılması gerekir.</p>
+
+<p><strong>Output Stream</strong></p>
+
+<p>Output stream ailesinin tepesinde java.io.OutputStream bulunur. Aynı kuzeni InputStream gibi OutputStream de <em>abstract</em> bir sınıftır ve tüm output stream sınıflarında var olan bazı temel metotlarla gelir.</p>
+
+<p>java.io.OutputStream sınıfının yapısı şu şekildedir:</p>
+
+<ul>
+<li>public abstract void write(int b)</li>
+<li>public void write(byte[] data)</li>
+<li>public void write(byte[] data, int offset, int length)</li>
+<li>public void flush()</li>
+<li>public void close()</li>
+</ul>
+
+<p>InputStream ile OutputStream mantık olarak birbirine benzediğinden, birini anladıktan sonra diğerini almak oldukça kolay gelecektir; bu nedenle OutputStream&rsquo;de tekrar her metodun detaylı olarak açıklanmasına gerek yok. Kısaca özet geçmek gerekirse, temel <strong>write()</strong> metodu 0-255 arasındaki bayt değerlerini bir hedefe yazmaya yarar. Her baytı teker teker yazmak için metot çağırmak yavaş bir çözüm olduğundan write() metodunun &ldquo;byte&rdquo; dizisi alan versiyonu da vardır. Bu da dizideki tüm değerleri hedefe yazar. Son versiyon ise diziyi belirli bir &ldquo;offset&rdquo; değeri kadar atlar ve verilen &ldquo;limit&rdquo; değeri kadar baytı hedefe yazar.</p>
+
+<p>Output stream ile yazılacak veri bittiğinde close() metodu çağrılmalıdır. Aksi halde, stream için tutulan kaynaklar serbest bırakılmamış olur. Örneğin, SocketOutputStream kapatılmazsa TCP bağlantısı aktif kalmaya devam eder. close() metodu çağrıldıktan sonra ise bağlantı sona erer ve bu noktadan sonra stream objesine veri yazmak <em>IOException</em> fırlatır.</p>
+
+<p>Genelde input stream sınıflarının birer output stream karşılığı bulunur. Örneğin FileInputStream&rsquo;ın karşılığı FileOutputStream&rsquo;dir. Benzer şekilde SocketInputStream&rsquo;in bir de SocketOutputStream karşılığı vardır.</p>
+
+<p><strong>try-with-resources</strong></p>
+
+<p>Java 7 ile birlikte stream kapatma işine biraz syntax güzelliği eklemek amacıyla <strong>try-with-resources</strong> yapısı eklenmiştir:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="k">try</span> <span class="o">(</span><span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">&quot;hello.txt&quot;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">8</span><span class="o">];</span>
+    <span class="n">inputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">bytes</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">byte</span> <span class="n">aByte</span> <span class="o">:</span> <span class="n">bytes</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">toBinaryString</span><span class="o">(</span><span class="n">aByte</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+
+<p>Yukarıdaki <strong>try</strong> bloğu içindeki kod çalıştıktan sonra inputStream&rsquo;in <strong>close()</strong> metodu çağrılır. Bu yapı tüm input ve output streamleri için kullanılabilir.</p>
+
+<p><strong>Kapanış</strong></p>
+
+<p>Bu yazıda ele alınan java.io.InputStream ve java.io.OutputStream sınıfları yalnızca bayt transferine odaklanır. Genelde ise aktardığımız baytlara farklı şekillerde davranmak isteriz: örneğin string veya obje gibi. Ayrıca performans, güvenlik ve güvenilirlik gibi nedenlerle bu baytları biraz değiştirmemiz gerekir: veriyi sıkıştırmak veya şifrelemek gibi. Bu gibi işlemler için, başka bir yazıda ele alacağım &ldquo;<strong>filtre stream</strong>&rdquo; sınıfları vardır ve uygulamalarımızda genellikle bu tür streamler ile muhatap oluruz. Ancak yine de I/O işleminin temelini kavramak açısından InputStream ve OutputStream yapılarını öğrenmek önemlidir.</p>
+
+                <br>
+                <p><a href="https://ugurhicyilmam.github.io/">Geri dön</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ugurhicyilmam';
+    var disqus_identifier = 'https:\/\/ugurhicyilmam.github.io\/blog\/java-io-p1\/';
+    var disqus_title = 'Java I\/O - Part 1';
+    var disqus_url = 'https:\/\/ugurhicyilmam.github.io\/blog\/java-io-p1\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-62045338-3', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+  
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/languages/go.min.js"></script>
+  
+
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+
+
+
+</body>
+</html>
+
