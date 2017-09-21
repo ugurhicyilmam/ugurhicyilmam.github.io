@@ -6,13 +6,13 @@
     <description>Recent content on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
-    <lastBuildDate>Tue, 19 Sep 2017 20:52:07 +0300</lastBuildDate>
+    <lastBuildDate>Thu, 21 Sep 2017 20:52:07 +0300</lastBuildDate>
     <atom:link href="https://ugurhicyilmam.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Java I/O - Part 1</title>
       <link>https://ugurhicyilmam.github.io/blog/java-io-p1/</link>
-      <pubDate>Tue, 19 Sep 2017 20:52:07 +0300</pubDate>
+      <pubDate>Thu, 21 Sep 2017 20:52:07 +0300</pubDate>
       
       <guid>https://ugurhicyilmam.github.io/blog/java-io-p1/</guid>
       <description>&lt;p&gt;Pek çok uygulamada yapılan temel iş aslında veri giriş-çıkışıdır. Bir kaynaktan veri alınır, veriyle bazı işler yapılır ve işlenen veriler çıktı olarak bir yere gönderilir. Network ile çalışan uygulamalarda da durum böyledir: Bir kaynaktan veri alınır ve başka bir kaynağa veri gönderilir. Java&amp;rsquo;nın gelişmiş I/O yapısı sayesinde, bir dosyadan veri okumak ile başka bir sunucudan veri okumak arasında pek fark yoktur. Aynı şekilde bir dosyaya veri yazmak ile başka bir makineye veri göndermek de birbirine oldukça benzer. Bu benzerliği sağlayan yapı &amp;ldquo;&lt;strong&gt;stream&lt;/strong&gt;&amp;rdquo; yapısıdır.&lt;/p&gt;
