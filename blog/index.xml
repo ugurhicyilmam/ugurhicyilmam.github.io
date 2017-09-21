@@ -58,7 +58,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Bu örnekte, dosyayı oluşturan tüm baytları bir dizi içerisine attık. read() metodundan cevap olarak ise okuduğu baytların sayısını aldık.&lt;/p&gt;
+&lt;p&gt;Bu örnekte, dosyayı oluşturan tüm baytları bir dizinin içine attık. read() metodundan cevap olarak ise okuduğu baytların sayısını aldık.&lt;/p&gt;
 
 &lt;p&gt;Eğer dosyada 5 bayttan daha fazla değer varsa, InputStream yazabildiği kadarını yazar. Benzer şekilde, eğer dosyada 5 bayttan daha az değer varsa, yalnızca olan değerleri yazar.&lt;/p&gt;
 
