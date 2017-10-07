@@ -41,9 +41,9 @@
 
 
     
-    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/reset.css?t=1506668510">
-    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/pygments.css?t=1506668510">
-    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/main.css?t=1506668510">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/reset.css?t=1507410266">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/pygments.css?t=1507410266">
+    <link rel="stylesheet" href="https://ugurhicyilmam.github.io/css/main.css?t=1507410266">
     
 
 
@@ -132,7 +132,7 @@
                     <div class="initials"><a href="https://ugurhicyilmam.github.io/"></a></div>
                 </div>
                 <div class="meta">
-                    <div class="date" title="Mon May 22 2017 11:48:39 EET">
+                    <div class="date" title="Mon May 22 2017 11:48:39 &#43;03">
                         22.05.2017
                     </div>
                 </div>
@@ -154,13 +154,13 @@
 
 <p><em>Linked List</em> içerisindeki her düğüm <em>Entry</em> sınıfının objelerinden oluşuyor:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
-     <span class="kd">final</span> <span class="n">K</span> <span class="n">key</span><span class="o">;</span>
-     <span class="kd">final</span> <span class="kt">int</span> <span class="n">hash</span><span class="o">;</span>
-     <span class="n">V</span> <span class="n">value</span><span class="o">;</span>
-     <span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">next</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div>
+
+private static class Entry<K,V> implements Map.Entry<K,V> {
+     final K key;
+     final int hash;
+     V value;
+     Entry<K,V> next;
+}
 
 
 <p>Her <em>Entry</em> objesinin içinde key-value ikilileri var. Görüldüğü gibi key değişkeni <em>final</em> olarak tanımlanmış. Bu eklenen bir kaydın <em>key</em> değerinin değiştirilemeyeceği anlamına geliyor. Öte yandan <em>value</em> değeri değiştirilebiliyor.</p>
@@ -171,11 +171,11 @@
 
 <p>HashMap sınıfının içine göz atınca aşağıdaki değerleri görüyoruz:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">DEFAULT_INITIAL_CAPACITY</span> <span class="o">=</span> <span class="mi">16</span><span class="o">;</span>
-<span class="kd">static</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">DEFAULT_LOAD_FACTOR</span> <span class="o">=</span> <span class="mf">0.75F</span><span class="o">;</span>
-<span class="kd">transient</span> <span class="kt">int</span> <span class="n">modCount</span><span class="o">;</span>
-<span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">TREEIFY_THRESHOLD</span> <span class="o">=</span> <span class="mi">8</span><span class="o">;</span>
-</code></pre></div>
+
+static final int DEFAULT_INITIAL_CAPACITY = 16;
+static final float DEFAULT_LOAD_FACTOR = 0.75F;
+transient int modCount;
+static final int TREEIFY_THRESHOLD = 8;
 
 
 <p>HashMap oluştururken <strong>default constructor</strong> kullanıldığında, bu değerler kullanılıyor. Bu değerlere göre yeni bir HashMap oluşturduğunuzda, dizinin boyutu 16 olarak belirleniyor. HashMap içindeki toplam eleman sayısının dizi boyutuna oranı 0.75&rsquo;i geçtiğinde ise eski dizinin iki katı boyutunda yeni bir dizi oluşturuluyor.</p>
@@ -198,13 +198,13 @@
 
 <p>HashSet aslında eklenen değerleri tutmak için HashMap kullanır:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">PRESENT</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
-<span class="kd">private</span> <span class="kd">transient</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">E</span><span class="o">,</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">E</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">return</span> <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">PRESENT</span><span class="o">)==</span><span class="kc">null</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div>
+private static final Object PRESENT = new Object();
+private transient HashMap<E,Object> map;
+
+public boolean add(E e) {
+  return map.put(e, PRESENT)==null;
+}
 
 
 <p>Eklenen değerler bir HashMap&rsquo;e <em>key</em> olarak eklenir. <em>Value</em> olarak ise PRESENT alanında tutulan, boş bir obje eklenir. Bu obje HashSet içerisinde hiç kullanılmaz ve <em>static</em> bir alanda tutulur, yani uygulama içerisindeki tüm HashSet&rsquo;lerde bu değer aynıdır.</p>
@@ -224,20 +224,25 @@
             <br>
             <div class="disqus">
                 <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'ugurhicyilmam';
-    var disqus_identifier = 'https:\/\/ugurhicyilmam.github.io\/blog\/javanin-hashmap-implementasyonu\/';
-    var disqus_title = 'Java\x27nın HashMap İmplementasyonu';
-    var disqus_url = 'https:\/\/ugurhicyilmam.github.io\/blog\/javanin-hashmap-implementasyonu\/';
-
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
     (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "ugurhicyilmam" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
             </div>
         </div>
     </div>

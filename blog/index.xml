@@ -2,12 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on Bir yazılımcının notları...</title>
-    <link>https://ugurhicyilmam.github.io/blog/index.xml</link>
+    <link>https://ugurhicyilmam.github.io/blog/</link>
     <description>Recent content in Blog on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
     <lastBuildDate>Thu, 21 Sep 2017 20:52:07 +0300</lastBuildDate>
-    <atom:link href="https://ugurhicyilmam.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://ugurhicyilmam.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Java I/O - Part 1</title>
@@ -15,107 +17,7 @@
       <pubDate>Thu, 21 Sep 2017 20:52:07 +0300</pubDate>
       
       <guid>https://ugurhicyilmam.github.io/blog/java-io-p1/</guid>
-      <description>&lt;p&gt;Pek çok uygulamada yapılan temel iş aslında veri giriş-çıkışıdır. Bir kaynaktan veri alınır, veriyle bazı işler yapılır ve işlenen veriler çıktı olarak bir yere gönderilir. Network ile çalışan uygulamalarda da durum böyledir: Bir kaynaktan veri alınır ve başka bir kaynağa veri gönderilir. Java&amp;rsquo;nın gelişmiş I/O yapısı sayesinde, bir dosyadan veri okumak ile başka bir sunucudan veri okumak arasında pek fark yoktur. Aynı şekilde bir dosyaya veri yazmak ile başka bir makineye veri göndermek de birbirine oldukça benzer. Bu benzerliği sağlayan yapı &amp;ldquo;&lt;strong&gt;stream&lt;/strong&gt;&amp;rdquo; yapısıdır.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Stream&lt;/em&gt; ilk duyulduğunda karmaşık bir terim gibi gelse de aslında veri transfer eden Java sınıflarıdır. Veri almak için kullanılan stream sınıflarına &lt;em&gt;input stream&lt;/em&gt;, veri çıkışı için kullanılan stream sınıflarına ise &lt;em&gt;output stream&lt;/em&gt; denir. Farklı veri kaynakları için farklı stream sınıfları vardır. Örneğin dosyadan veri okumak için &amp;ldquo;&lt;em&gt;FileInputStream&lt;/em&gt;&amp;rdquo; kullanılırken, Telnet&amp;rsquo;e veri yazmak için &amp;ldquo;TelnetOutputStream&amp;rdquo; kullanılır. Ancak işin güzel yanı, tüm input stream sınıfları veri okumak için aynı temel metotları kullanırken, tüm output strem sınıfları da veri yazmak için aynı metotları kullanır.&lt;/p&gt;
-
-&lt;p&gt;Farklı stream sınıfları arasındaki temel fark aslında bunların oluşturuluş şeklidir, hepsi aynı hiyerarşinin parçası olduğu için kullanılış açısından hiçbir fark yoktur. Dolayısıyla stream sınıfı oluşturulduktan sonra, hangi stream sınıfının kullanıldığı tamamen görmezden gelinebilir.&lt;/p&gt;
-
-&lt;p&gt;Temel anlamda iki farklı stream var demiştik: input ve output stream. Bunları teker teker ele alalım.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Input Stream&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Java&amp;rsquo;da input stream sınıfları hiyerarşisinin tepesinde &lt;strong&gt;java.io.InputStream&lt;/strong&gt; bulunur. Bu sınıf &amp;ldquo;abstract&amp;rdquo; olduğu için objesi oluşturulamaz ancak tüm input stream sınıfları için temel birkaç metot sağlar:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;public int available()&lt;/li&gt;
-&lt;li&gt;public void close()&lt;/li&gt;
-&lt;li&gt;public abstract int read()&lt;/li&gt;
-&lt;li&gt;public int read(byte[] input)&lt;/li&gt;
-&lt;li&gt;public int read(byte[] input, int offset, int length)&lt;/li&gt;
-&lt;li&gt;public long skip(long n)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Farklı veri kaynakları veya hedefleri için farklı stream sınıfları olsa da, hepsi aynı InputStream sınıfından türer. Dolayısıyla, bu sınıftan türeyen bütün sınıflar bu temel metotları kullanır. Örneğin bir dosyadan veri okumak için FileInputStream, bir TCP bağlantısından veri almak için java.net.SocketInputStream kullanılır, ancak bu sınıfların kullanılış şekli tamamen aynıdır.&lt;/p&gt;
-
-&lt;p&gt;java.io.InputStream sınıfının en temel metodu read() metodudur. Hiçbir argüman almayan bu metot bir bayta karşılık gelen 0-255 arasında bir sayı (int) döner. Yani, her çağrılışında veri kaynağından bir bayt okur ve döner. Verinin sonuna ulaştığını ise -1 değerini dönerek belirtir.&lt;/p&gt;
-
-&lt;p&gt;Örneğin aşağıdaki kod parçası bir dosyadan veriyi baytlar halinde okuyup, bu baytların binary karşılığını ekrana yazdırır:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FileInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;hello.txt&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;byteValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;byteValue&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toBinaryString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;byteValue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Yukarıdaki örnekte bir döngü içinde teker teker baytları okuduk. Bunun yerine, InputStream&amp;rsquo;den tüm baytları bir dizi içerisinde de isteyebiliriz:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FileInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;hello.txt&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;byteValues&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;numberOfBytes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;byteValues&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Bu örnekte, dosyayı oluşturan tüm baytları bir dizinin içine attık. read() metodundan cevap olarak ise okuduğu baytların sayısını aldık.&lt;/p&gt;
-
-&lt;p&gt;Eğer dosyada 5 bayttan daha fazla değer varsa, InputStream yazabildiği kadarını yazar. Benzer şekilde, eğer dosyada 5 bayttan daha az değer varsa, yalnızca olan değerleri yazar.&lt;/p&gt;
-
-&lt;p&gt;Son read() metodunda diziye yazılacak bayt sayısını ve bu baytların dizinin neresinden itibaren yazılacağını ayarlayabiliriz.&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FileInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;hello.txt&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;byteValues&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;numberOfBytes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;byteValues&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Örneğin yukarıdaki örnekte dizinin ilk üç değeri boş (0) ve ardından gelen 5 değer dosyadan okunan bayt değerleri olacaktır. Metot cevap olarak ise yazılan baytların sayısını döner. Bu metot hata kontrolü için güzel bir mekanizma sağladığı için oldukça faydalıdır: Önce kaynaktan gelen baytları bir dizi içine okumayı denersin, sonra başarılı şekilde okuyabildiğin baytların sayısını okuman gerekenle karşılaştırırsın. Eğer arada bir fark varsa başarılı bir okuyabildiğin bayt sayısı kadar &lt;em&gt;offset&lt;/em&gt; verip, tekrar yazmayı denersin. read() metodu bu durumda yazmaya kaldığı yerden devam eder.&lt;/p&gt;
-
-&lt;p&gt;Nadiren de olsa, okunacak bazı baytların atlanması gerektiği durumlarda &lt;strong&gt;skip()&lt;/strong&gt; metodu kullanılabilir.&lt;/p&gt;
-
-&lt;p&gt;Son olarak InputStream ile yapılan iş bittiğinde mutlaka &lt;strong&gt;close()&lt;/strong&gt; metodu çağrılarak InputStream için ayrılmış kaynakların (açık dosyalar, dinlenen portlar gibi) serbest bırakılması gerekir.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Output Stream&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Output stream ailesinin tepesinde java.io.OutputStream bulunur. Aynı kuzeni InputStream gibi OutputStream de &lt;em&gt;abstract&lt;/em&gt; bir sınıftır ve tüm output stream sınıflarında var olan bazı temel metotlarla gelir.&lt;/p&gt;
-
-&lt;p&gt;java.io.OutputStream sınıfının yapısı şu şekildedir:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;public abstract void write(int b)&lt;/li&gt;
-&lt;li&gt;public void write(byte[] data)&lt;/li&gt;
-&lt;li&gt;public void write(byte[] data, int offset, int length)&lt;/li&gt;
-&lt;li&gt;public void flush()&lt;/li&gt;
-&lt;li&gt;public void close()&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;InputStream ile OutputStream mantık olarak birbirine benzediğinden, birini anladıktan sonra diğerini almak oldukça kolay gelecektir; bu nedenle OutputStream&amp;rsquo;de tekrar her metodun detaylı olarak açıklanmasına gerek yok. Kısaca özet geçmek gerekirse, temel &lt;strong&gt;write()&lt;/strong&gt; metodu 0-255 arasındaki bayt değerlerini bir hedefe yazmaya yarar. Her baytı teker teker yazmak için metot çağırmak yavaş bir çözüm olduğundan write() metodunun &amp;ldquo;byte&amp;rdquo; dizisi alan versiyonu da vardır. Bu da dizideki tüm değerleri hedefe yazar. Son versiyon ise diziyi belirli bir &amp;ldquo;offset&amp;rdquo; değeri kadar atlar ve verilen &amp;ldquo;limit&amp;rdquo; değeri kadar baytı hedefe yazar.&lt;/p&gt;
-
-&lt;p&gt;Output stream ile yazılacak veri bittiğinde close() metodu çağrılmalıdır. Aksi halde, stream için tutulan kaynaklar serbest bırakılmamış olur. Örneğin, SocketOutputStream kapatılmazsa TCP bağlantısı aktif kalmaya devam eder. close() metodu çağrıldıktan sonra ise bağlantı sona erer ve bu noktadan sonra stream objesine veri yazmak &lt;em&gt;IOException&lt;/em&gt; fırlatır.&lt;/p&gt;
-
-&lt;p&gt;Genelde input stream sınıflarının birer output stream karşılığı bulunur. Örneğin FileInputStream&amp;rsquo;ın karşılığı FileOutputStream&amp;rsquo;dir. Benzer şekilde SocketInputStream&amp;rsquo;in bir de SocketOutputStream karşılığı vardır.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;try-with-resources&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Java 7 ile birlikte stream kapatma işine biraz syntax güzelliği eklemek amacıyla &lt;strong&gt;try-with-resources&lt;/strong&gt; yapısı eklenmiştir:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;InputStream&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FileInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;hello.txt&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;];&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;inputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;aByte&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bytes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Integer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;toBinaryString&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;aByte&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;));&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Yukarıdaki &lt;strong&gt;try&lt;/strong&gt; bloğu içindeki kod çalıştıktan sonra inputStream&amp;rsquo;in &lt;strong&gt;close()&lt;/strong&gt; metodu çağrılır. Bu yapı tüm input ve output streamleri için kullanılabilir.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Kapanış&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Bu yazıda ele alınan java.io.InputStream ve java.io.OutputStream sınıfları yalnızca bayt transferine odaklanır. Genelde ise aktardığımız baytlara farklı şekillerde davranmak isteriz: örneğin string veya obje gibi. Ayrıca performans, güvenlik ve güvenilirlik gibi nedenlerle bu baytları biraz değiştirmemiz gerekir: veriyi sıkıştırmak veya şifrelemek gibi. Bu gibi işlemler için, başka bir yazıda ele alacağım &amp;ldquo;&lt;strong&gt;filtre stream&lt;/strong&gt;&amp;rdquo; sınıfları vardır ve uygulamalarımızda genellikle bu tür streamler ile muhatap oluruz. Ancak yine de I/O işleminin temelini kavramak açısından InputStream ve OutputStream yapılarını öğrenmek önemlidir.&lt;/p&gt;
-</description>
+      <description>Pek çok uygulamada yapılan temel iş aslında veri giriş-çıkışıdır. Bir kaynaktan veri alınır, veriyle bazı işler yapılır ve işlenen veriler çıktı olarak bir yere gönderilir. Network ile çalışan uygulamalarda da durum böyledir: Bir kaynaktan veri alınır ve başka bir kaynağa veri gönderilir. Java&amp;rsquo;nın gelişmiş I/O yapısı sayesinde, bir dosyadan veri okumak ile başka bir sunucudan veri okumak arasında pek fark yoktur. Aynı şekilde bir dosyaya veri yazmak ile başka bir makineye veri göndermek de birbirine oldukça benzer.</description>
     </item>
     
     <item>
@@ -124,53 +26,8 @@
       <pubDate>Mon, 18 Sep 2017 19:43:57 +0300</pubDate>
       
       <guid>https://ugurhicyilmam.github.io/blog/katmanli-mimari-paketleme-sekli/</guid>
-      <description>&lt;p&gt;Uygulama geliştirme sürecinde verilmesi gereken önemli kararlardan biri kaynak kodları paketlere bölme şeklidir. Katmanlı mimaride genellikle uygulanan yöntem her katman için bir paket oluşturup, sınıfları bulunduğu katmanın paketine atmaktır. Katmanlı mimari anlaşılması son derece kolay bir mimari yaklaşım olup pek çok problemi çözer. Zaten bu yazı da bir katmanlı mimari eleştirisi değil. Ancak paketleri de bu katmanlı yapıya göre düzenlemek her zaman en iyi çözüm olmayabilir.&lt;/p&gt;
-
-&lt;p&gt;Katmanlı mimaride tipik olarak “_presentation_”, “_application_”, “_domain_”, “_infrastructure_” gibi katmanlar bulunur. Bu yapı pek çok “_enterprise_” uygulama için yaygın olsa da projeden projeye farklılık görülebilir. Örneğin pek çok web uygulamasında “_repository_”, “_service_”, “_controller_” gibi katmanlar bulunur.&lt;/p&gt;
-
-&lt;p&gt;Paketleri katmanlara göre oluşturduğumuzda ortaya şuna benzer bir yapı çıkar:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;com.example.repository&lt;/li&gt;
-&lt;li&gt;com.example.service&lt;/li&gt;
-&lt;li&gt;com.example.controller&lt;/li&gt;
-&lt;li&gt;com.example.model&lt;/li&gt;
-&lt;li&gt;com.example.dto&lt;/li&gt;
-&lt;li&gt;com.exampe.util&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Böyle bir paketleme son derece basit ve anlaşılabilir olsa da bazı problemler ortaya çıkarır. En başta paketler arasında ortaya çıkan aşırı bağımlılık problemi gelir. Paketler belli problemleri çözmeye odaklanmadıklarından problemin çözülebilmesi için başka paketlerle etkileşime girmelidir.&lt;/p&gt;
-
-&lt;p&gt;Ortaya çıkan bir diğer sorun uygulamadaki paket sayısının uygulama büyüdükçe büyümemesidir. Uygulama yüzlerce farklı özellik içerse de uygulamadaki paket sayısı hemen hemen sabit kalır ve paketlerin içi yüzlerce sınıf ile dolar.&lt;/p&gt;
-
-&lt;p&gt;Paketleri katmanlara göre oluşturmanın alternatifi paketleri oluştururken özellikleri göz önünde bulundurmaktır. Bu yöntemde uygulamanın belirli bir özelliğine odaklanan her sınıf aynı paket içinde toplanır.&lt;/p&gt;
-
-&lt;p&gt;Örneğin bu yapıyı kullanan &lt;strong&gt;&lt;a href=&#34;https://github.com/spring-projects/spring-petclinic&#34;&gt;pet-clinic&lt;/a&gt;&lt;/strong&gt; uygulamasındaki paket yapısı şu şekildedir:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;org.springframework.samples.petclinic.owner&lt;/li&gt;
-&lt;li&gt;org.springframework.samples.petclinic.system&lt;/li&gt;
-&lt;li&gt;org.springframework.samples.petclinic.vet&lt;/li&gt;
-&lt;li&gt;org.springframework.samples.petclinic.visit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Bu mimaride her paket kendi içinde bir bütündür ve diğer paketlere olan bağımlılığı son derece azdır. Aynı zamanda yalnızca paket isimlerine bakarak bile uygulamanın yaptığı iş hakkında kolayca fikir sahibi olunabilir.&lt;/p&gt;
-
-&lt;p&gt;Bu paketleme yöntemi ilk bakışta katmanlı yapı ile çelişiyor gibi görünse de aslında katmanlı mimari daha mikro ölçekte, her paket içinde uygulanmaya devam etmektedir.&lt;/p&gt;
-
-&lt;p&gt;Örneğin pet-clinic uygulamasındaki &amp;ldquo;&lt;em&gt;owner&lt;/em&gt;&amp;rdquo; paketinin içeriğine bir göz atalım:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Owner.java&lt;/li&gt;
-&lt;li&gt;OwnerController.java&lt;/li&gt;
-&lt;li&gt;OwnerRepository.java&lt;/li&gt;
-&lt;li&gt;&amp;hellip;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Görüldüğü gibi, katmanlı yapı aslında her paket içinde yaşamaya devam ediyor.&lt;/p&gt;
-
-&lt;p&gt;Açıkçası ben uzun süredir katmanlara göre paketleme yöntemini kullanıyordum. Son zamanlarda geliştirdiğimiz bir uygulamanın büyüklüğü artınca yukarıda bahsi geçen dezavantajları yaşamaya başladım. Biraz araştırma sonrası özelliğe göre paketleme yönteminin zaten uygulanan bir yöntem olduğunu görüp birkaç kişisel projemde bu yöntemi uyguladım. Şu ana dek karşılaştığım tek sıkıntı, uygulama içerisindeki özelliklerin tanımının her zaman kesin olmaması. Yani uygulama şu özelliklerden oluşuyor ve bunlara şu paketler karşılık geliyor demek her zaman kolay değil. Bu problem dışında, bu yöntemi uygulamanın hayatımı kolaylaştırdığını söyleyebilirim.&lt;/p&gt;
-</description>
+      <description>Uygulama geliştirme sürecinde verilmesi gereken önemli kararlardan biri kaynak kodları paketlere bölme şeklidir. Katmanlı mimaride genellikle uygulanan yöntem her katman için bir paket oluşturup, sınıfları bulunduğu katmanın paketine atmaktır. Katmanlı mimari anlaşılması son derece kolay bir mimari yaklaşım olup pek çok problemi çözer. Zaten bu yazı da bir katmanlı mimari eleştirisi değil. Ancak paketleri de bu katmanlı yapıya göre düzenlemek her zaman en iyi çözüm olmayabilir.
+Katmanlı mimaride tipik olarak “_presentation_”, “_application_”, “_domain_”, “_infrastructure_” gibi katmanlar bulunur.</description>
     </item>
     
     <item>
@@ -179,50 +36,8 @@
       <pubDate>Fri, 26 May 2017 15:51:10 +0300</pubDate>
       
       <guid>https://ugurhicyilmam.github.io/blog/teknik-gelisim/</guid>
-      <description>
-
-&lt;p&gt;Yazılım endüstrisinde çalışan herkes bir döneminde şu soruyla karşılaşıyor: kendimi nasıl geliştirmeliyim ki firmaların işe almak istediği bir mühendis haline geleyim. Bu soruyu cevaplayabilmek için teknik yeteneklerin gelişimini ve ideal mühendis tipini biraz irdelemek gerekiyor.&lt;/p&gt;
-
-&lt;p&gt;Mühendislerin yetenekleri genel olarak iki şekilde değerlendirilir: genişlik ve derinlik. Genişlik, farklı alanlar hakkında belirli bir düzeyde bilgi sahibi olmak anlamına gelirken derinlik, spesifik bir alanda çok ufak detaylara bile hakim olabilmek, o alanın zor problemlerini çözebiliyor olmak anlamına gelir.&lt;/p&gt;
-
-&lt;p&gt;İş dünyasında ideal mühendis tipinin T şekilli olduğundan bahsedilir. Yani birden fazla alanda bilgi sahibi, bir alanda ise çok ufak detaylara hakim, o alanın uzmanı olan bir mühendis ideal çalışan tipi olarak tanımlanır.&lt;/p&gt;
-
-&lt;p&gt;T şekilli bir gelişim ideal olsa da ne yazık ki çok kolay değil. Genişlik sahibi olmak çok zor değil, ne de olsa insan sıkılgan bir varlık ve farklı farklı teknolojilerle çalışmak çoğu programcının sevdiği bir şey. Öte yandan derinlik sahibi olmak çok daha zor problemlerle uzun süre uğraşmayı gerektiriyor, bu nedenle biraz daha sabır ve dayanıklılık gerektiriyor diyebiliriz.&lt;/p&gt;
-
-&lt;p&gt;Bir alanda uzmanlaşmak için gerekli olan sürenin 10 bin saat olduğundan bahsedilir. Malcolm Gladwell tarafından ortaya atılan bu süre, aynı alana odaklanılmadığında ve sürekli artan zorlukta problemlerle uğraşmadıkça doğru olmak zorunda değil. Derinlemesine bir uzmanlık için, gerçekten o alana odaklanmak gerekiyor. Ancak uzun süreli bir odaklanmanın olduğu durumlarda 10 bin saat kuralının doğruluğu iddia edilebilir.&lt;/p&gt;
-
-&lt;p&gt;Azalan verimler yasası da dikkate alınması gereken bir başka nokta. Bu yasa iktisadi bir kavram olsa da öğrenme sürecine de uyarlanabilir. Bir alanda kendinizi geliştirmeye ilk başladığınızda önünüzde öğrenecek çok fazla şey olduğundan kısa sürede çok hızlı gelişim göstermek mümkün. Ancak bu hız detaylara indikçe düşmeye başlıyor ve bir yerden sonra kişi ilerlerdiğini hiç farkedemeyecek hale geliyor.&lt;/p&gt;
-
-&lt;p&gt;Verim düştükçe tatmin azalıyor ve bununla başa çıkamayan pek çok insan vakitlerini daldan dala atlayarak harcıyor ve mesleki tatminsizlik içine düşüyor. Bununla baş edebilen az sayıda mühendis ise, gittikçe çok daha zor problemlerle başa çıkabilir hale geliyor ve alanının yıldızları arasına katılıyor.&lt;/p&gt;
-
-&lt;p&gt;Derinlik elde edebilmek için sabırla odaklanma ve çok zor problemlerle uğraşmak şart demiştik. Öte yandan daldan dala atlayarak genişlik elde etmek de mümkün değil. Sık alan değiştirme genellikle sıkılma dürtüsüyle yapıldığından, gerekli olandan ziyade daha çok eğlenceli alanlara yönelmeyle son buluyor. Bu nedenle istenen genişlik de elde edilemiyor.&lt;/p&gt;
-
-&lt;h4 id=&#34;genişlik-nasıl-elde-edilir&#34;&gt;Genişlik nasıl elde edilir?&lt;/h4&gt;
-
-&lt;p&gt;Genişlik elde edebilmek için benim uyguladığım ilke Pareto ilkesi. Bu ilkenin ilk çıkış noktası çok daha farklı olsa da hayatta pek çok alana bu ilkeyi uygulamak mümkün, teknik gelişim de kesinlikle bunlardan biri. Bu ilkeye göre, örneğin Java kodlarken kullanacağınız dil özelliklerinin %80&amp;rsquo;i,  aslında o dilin %20&amp;rsquo;sinden oluşuyor. Yani öğrendiğiniz şeylerin %20&amp;rsquo;si, aslında yapacağınız işin %80&amp;rsquo;ini oluşturuyor. Bu nedenle kendi alanınız dışındaki teknik alanlarda efektif bir öğrenme yöntemiyle o bilmeniz gereken büyük bir kısmına hakim olabilirsiniz.&lt;/p&gt;
-
-&lt;p&gt;Genişlik tabii ki sadece teknik konularla sınırlı değil. Örneğin bir banka yazılımı üzerinde çalışıyorsanız, finans sektörü ve bankacılık hakkında da bilmeniz gerekenler var. Ya da her mühendisin ortak sahip olması gereken bir yetenek olan insan ilişkileri de bu kapsamda değerlendirilebilir. Bu gibi yan alanlar için de aynı Pareto ilkesi uygulanabilir.&lt;/p&gt;
-
-&lt;p&gt;Genişlik kapsamına nelerin girdiği de önemli. Bu daha çok üzerinde çalıştığınız yazılımın diğer kısımlarıyla alakalı olmalı. Örneğin bir web sunucusu yapıyorsanız, ön yüz geliştirmeyi, DevOps ile ilgili yapılan işleri, proje yönetimi ve uygulamanın yapıldığı iş dalını da %20 (pareto) düzeyinde bilmeniz gerekiyor. Açıkçası, örneğin gömülü sistemler üzerine çalışıyorsanız web tasarımını %20 düzeyinde bilmek çok da işinize yaramayacak.&lt;/p&gt;
-
-&lt;h4 id=&#34;derinlik-nasıl-elde-edilir&#34;&gt;Derinlik nasıl elde edilir?&lt;/h4&gt;
-
-&lt;p&gt;Hali hazırda bir alanda uzmanlığınız varsa tek yapmanız gereken zaman zaman ortaya çıkan daldan dala atlama dürtünüzü bastırmak ve yaptığınız şeyi yapmaya devam etmek. Bu alanda kendinizi geliştirmek için o alanın uzmanı insanlarla iletişime geçmek, alanınızdaki kaliteli kitapları okumak ve alanınızın zor problemleriyle uğraşmak alacağınız diğer aksiyonlar olmalı.&lt;/p&gt;
-
-&lt;p&gt;Hali hazırda bir derinliğiniz yoksa buna nereden başlamalısınız? Burada bence en önemli şey gerçekten sevdiğiniz ve yetenekli olduğunuz bir alan seçmeniz. Bazı insanlar bu alanı küçük yaşta seçerek çok daha erken uzmanlaşıyor ancak bu şanslı azınlıktan olmak zorunda değilsiniz ve uzmanlık alanını seçmek için asla geç kalmış değilsiniz.&lt;/p&gt;
-
-&lt;p&gt;İlk karar vermeniz gereken ayrıntı ne tip yazılım geliştirmek istediğiniz. Web uygulamaları, mobil uygulamalar, oyunlar, gömülü sistemler, sistem yazılımları pek çok seçenekten sadece birkaçı.&lt;/p&gt;
-
-&lt;p&gt;İkinci olarak sormanız gereken soru seçtiğiniz uygulama türünün hangi kısmında çalışmak istediğiniz. Örneğin oyun endüstrisinde çalışmak istiyorsanız ve Java&amp;rsquo;ya ilgi duyuyorsanız, gerçek zamanlı Java sunucuları üzerinde çalışmak yeterince spesifik bir uzmanlık alanı.&lt;/p&gt;
-
-&lt;p&gt;Bunlar dışında bir işletim sisteminin yönetimi üzerinde uzmanlaşmak da güzel bir spesifik bir uzmanlık alanı olabilir. Örneğin, Linux sistemleri üzerine uzman olan pek çok mühendis bulabilirsiniz.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Yazılım gerçekten çok geniş bir alan ve bu anlamda doktorluk ile kıyaslanabilir. Nasıl doktorlar belli bir alanda uzman olup diğer tıp alanları hakkında yüzeysel bilgi sahibi oluyorsa, bir yazılım mühendisi de ancak bir alan seçip uzmanlaşma yoluyla mesleki başarıya ulaşabilir ve seçtiği alanda fark yaratabilir.&lt;/p&gt;
-
-&lt;p&gt;Özet olarak kendini geliştirme iki yönlü olmalı: derinlik ve genişlik. Derinlik için seçtiğiniz alanda yıllarça çalışmanız, o alanın en zor problemlerini çözmeniz, genişlik için ise bazı yan alanları en önemli yönleriyle öğrenmek gerekiyor.&lt;/p&gt;
-</description>
+      <description>Yazılım endüstrisinde çalışan herkes bir döneminde şu soruyla karşılaşıyor: kendimi nasıl geliştirmeliyim ki firmaların işe almak istediği bir mühendis haline geleyim. Bu soruyu cevaplayabilmek için teknik yeteneklerin gelişimini ve ideal mühendis tipini biraz irdelemek gerekiyor.
+Mühendislerin yetenekleri genel olarak iki şekilde değerlendirilir: genişlik ve derinlik. Genişlik, farklı alanlar hakkında belirli bir düzeyde bilgi sahibi olmak anlamına gelirken derinlik, spesifik bir alanda çok ufak detaylara bile hakim olabilmek, o alanın zor problemlerini çözebiliyor olmak anlamına gelir.</description>
     </item>
     
     <item>
@@ -231,86 +46,8 @@
       <pubDate>Mon, 22 May 2017 11:48:39 +0300</pubDate>
       
       <guid>https://ugurhicyilmam.github.io/blog/javanin-hashmap-implementasyonu/</guid>
-      <description>
-
-&lt;p&gt;&lt;strong&gt;HashMap&lt;/strong&gt;, Java içerisindeki önemli konulardan biri ve bu nedenle teknik görüşmelerde karşılaşmanız yüksek ihtimal. Bu yazıda kısaca HashMap mantığıyla giriş yaptıktan sonra Java&amp;rsquo;daki implementasyonunu açıklayacağım.&lt;/p&gt;
-
-&lt;p&gt;İlk olarak biraz analoji kullanarak ve teknik detaylara girmeden konuyu ele alalım. HashMap, pek çok bölmeye sahip ve her bölmeye belli tip eşyaların girebileceği bir dolaba benzetilebilir. Örneğin bir ayakkabı bölmesine, bir kıyafet bölmesine, bir de kitap bölmesine sahip bir dolap&amp;hellip; Dolaba bir ayakkabı koyacağınız zaman ayakkabı bölmesine koymak zorundasınız. Ayakkabıyı alacağınız zaman da ayakkabı bölmesinden almalısınız. Böylece ayakkabıyı yerleştirmek de kolaylaşıyor, bulmak da&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;Ayakkabı bölmesinde birden fazla ayakkabı koymak zorunda olduğunuzda ne oluyor?&lt;/p&gt;
-
-&lt;p&gt;Bu sorunu çözmek için en basit yöntem  ayakkabıları üst üste, aynı bölme içine yığmak. Herhangi bir ayakkabıyı almak istediğinizde de, yığıntının içinden istediğiniz ayakkabıyı arayarak bulmak. Java&amp;rsquo;nın HashMap implementasyonunda da benzer bir yaklaşım var.&lt;/p&gt;
-
-&lt;p&gt;Yazının bu noktadan sonrası biraz daha teknik olarak devam edecek.&lt;/p&gt;
-
-&lt;p&gt;Java&amp;rsquo;nın HashMap implementasyonu aslında bir dizi &lt;strong&gt;Linked List&lt;/strong&gt;&amp;lsquo;ten (bağlı liste) oluşuyor. &lt;em&gt;Linked List&lt;/em&gt; içerisindeki düğümler HashMap&amp;rsquo;e eklenen &lt;em&gt;key-value&lt;/em&gt; (anahtar-değer) ikililerini ve diğer düğümlere olan bağlantıları tutuyor.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Linked List&lt;/em&gt; içerisindeki her düğüm &lt;em&gt;Entry&lt;/em&gt; sınıfının objelerinden oluşuyor:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;implements&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-     &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;K&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-     &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hash&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-     &lt;span class=&#34;n&#34;&gt;V&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-     &lt;span class=&#34;n&#34;&gt;Entry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Her &lt;em&gt;Entry&lt;/em&gt; objesinin içinde key-value ikilileri var. Görüldüğü gibi key değişkeni &lt;em&gt;final&lt;/em&gt; olarak tanımlanmış. Bu eklenen bir kaydın &lt;em&gt;key&lt;/em&gt; değerinin değiştirilemeyeceği anlamına geliyor. Öte yandan &lt;em&gt;value&lt;/em&gt; değeri değiştirilebiliyor.&lt;/p&gt;
-
-&lt;p&gt;Her Entry objesi ayrıca next adında, bir sonraki Entry objesine işaret eden bir alana sahip. Bu sayede Entry objeleri aynı zamanda bir Linked List gibi davranıyor.&lt;/p&gt;
-
-&lt;p&gt;Son olarak, &amp;ldquo;hash&amp;rdquo; alanı, key alanının hash değerini tutuyor. Bu değer, Entry objesinin dizi içerisindeki yerini tespit etmede kullanılılyor. Birden fazla &lt;em&gt;Entry&lt;/em&gt; aynı &lt;em&gt;key&lt;/em&gt; değerine sahip olduğunda &lt;em&gt;next&lt;/em&gt; alanıyla birbirlerine bağlanarak bir &lt;em&gt;Linked List&lt;/em&gt; meydana getiriyor.&lt;/p&gt;
-
-&lt;p&gt;HashMap sınıfının içine göz atınca aşağıdaki değerleri görüyoruz:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DEFAULT_INITIAL_CAPACITY&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;float&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DEFAULT_LOAD_FACTOR&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.75F&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;transient&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;modCount&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TREEIFY_THRESHOLD&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;HashMap oluştururken &lt;strong&gt;default constructor&lt;/strong&gt; kullanıldığında, bu değerler kullanılıyor. Bu değerlere göre yeni bir HashMap oluşturduğunuzda, dizinin boyutu 16 olarak belirleniyor. HashMap içindeki toplam eleman sayısının dizi boyutuna oranı 0.75&amp;rsquo;i geçtiğinde ise eski dizinin iki katı boyutunda yeni bir dizi oluşturuluyor.&lt;/p&gt;
-
-&lt;h5 id=&#34;java-8-değişiklikleri&#34;&gt;Java 8 Değişiklikleri&lt;/h5&gt;
-
-&lt;p&gt;HashMap, &lt;em&gt;key&lt;/em&gt; ararken O(1) performansı sağlasa da HashMap içindeki pek çok &lt;em&gt;key&lt;/em&gt; alanının &lt;em&gt;hash&lt;/em&gt; değeri aynıysa bu performans düşmeye başlar, çünkü bu durumda &lt;em&gt;key&lt;/em&gt; değerleri Linked List&amp;rsquo;ler içinde aranmaya başlanır. Linked List&amp;rsquo;in arama performansı da O(n) olduğundan, O(1) değerimiz O(n)&amp;lsquo;e doğru yakınlaşmaya başlar.&lt;/p&gt;
-
-&lt;p&gt;Bu sorunu çözebilmek için, belli bir &lt;em&gt;threshold&lt;/em&gt; değeri aşıldıktan sonra Linked List yerine &lt;em&gt;Binary Tree&lt;/em&gt; kullanılır ve bu sayede en kötü performans O(n)&amp;lsquo;den O(logn)&amp;lsquo;e düşürülür. Tabii bunun için &lt;em&gt;key&lt;/em&gt; değerlerinin karşılaştırılabilir olması gerekir. Aksi durumda korkunç O(n) performansına geri döneriz.&lt;/p&gt;
-
-&lt;h5 id=&#34;concurrentmodificationexception&#34;&gt;ConcurrentModificationException&lt;/h5&gt;
-
-&lt;p&gt;&lt;em&gt;ConcurrentModificationException&lt;/em&gt; multi-threaded bir uygulamada karşılaşabileceğiniz bir hata&amp;hellip; Threadlerden birinde HashMap üzerinde iterasyon devam ederken, bir başka thread içinde HashMap üzerinde değişiklik yapıldığında ortaya çıkar.&lt;/p&gt;
-
-&lt;p&gt;HashMap içinde modCount adında bir alan HashMap üzerinde yapılan tüm değişikliklerin sayısını tutar. Benzer bir şekilde, HashMap&amp;rsquo;in &amp;ldquo;iterator&amp;rdquo; objesinde de iteratorModCount adında bir alan iterator ilk oluşturulduğundaki modCount değerini tutar. Her iterasyonda iteratorModCount ve modCount değerleri karşılaştırılır ve değerler farklı olduğunda ConcurrentModificationException fırlatılır.&lt;/p&gt;
-
-&lt;h5 id=&#34;hashset&#34;&gt;HashSet&lt;/h5&gt;
-
-&lt;p&gt;Java&amp;rsquo;nın HashSet implementasyonu aslında HashMap implementasyonunun biraz özelleştirilmiş hali olduğundan bu yazı da onu da açıklamak yerinde olacak.&lt;/p&gt;
-
-&lt;p&gt;HashSet aslında eklenen değerleri tutmak için HashMap kullanır:&lt;/p&gt;
-
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;final&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PRESENT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;transient&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HashMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;E&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Object&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-
-&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;boolean&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;E&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;put&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PRESENT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)==&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Eklenen değerler bir HashMap&amp;rsquo;e &lt;em&gt;key&lt;/em&gt; olarak eklenir. &lt;em&gt;Value&lt;/em&gt; olarak ise PRESENT alanında tutulan, boş bir obje eklenir. Bu obje HashSet içerisinde hiç kullanılmaz ve &lt;em&gt;static&lt;/em&gt; bir alanda tutulur, yani uygulama içerisindeki tüm HashSet&amp;rsquo;lerde bu değer aynıdır.&lt;/p&gt;
-
-&lt;h5 id=&#34;kaynakça&#34;&gt;Kaynakça&lt;/h5&gt;
-
-&lt;p&gt;Ayrıntılı bilgi için aşağıdaki kaynaklara bakabilirsiniz:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.javamadesoeasy.com/2015/02/hashmap-custom-implementation.html&#34;&gt;http://www.javamadesoeasy.com/2015/02/hashmap-custom-implementation.html&lt;/a&gt;
-&lt;a href=&#34;https://dzone.com/articles/hashmap-performance&#34;&gt;https://dzone.com/articles/hashmap-performance&lt;/a&gt;
-&lt;a href=&#34;http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashMap.java&#34;&gt;http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashMap.java&lt;/a&gt;
-&lt;a href=&#34;http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashSet.java&#34;&gt;http://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/util/HashSet.java&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>HashMap, Java içerisindeki önemli konulardan biri ve bu nedenle teknik görüşmelerde karşılaşmanız yüksek ihtimal. Bu yazıda kısaca HashMap mantığıyla giriş yaptıktan sonra Java&amp;rsquo;daki implementasyonunu açıklayacağım.
+İlk olarak biraz analoji kullanarak ve teknik detaylara girmeden konuyu ele alalım. HashMap, pek çok bölmeye sahip ve her bölmeye belli tip eşyaların girebileceği bir dolaba benzetilebilir. Örneğin bir ayakkabı bölmesine, bir kıyafet bölmesine, bir de kitap bölmesine sahip bir dolap&amp;hellip; Dolaba bir ayakkabı koyacağınız zaman ayakkabı bölmesine koymak zorundasınız.</description>
     </item>
     
     <item>
@@ -319,42 +56,9 @@
       <pubDate>Tue, 07 Feb 2017 17:23:17 +0300</pubDate>
       
       <guid>https://ugurhicyilmam.github.io/blog/tembel-olmak/</guid>
-      <description>&lt;p&gt;Tembellik, toplum genelinde olumsuz bir özellik olarak değerlendirilir. Genel inanış, çok çalışmanın başarı için kaçınılmaz olduğu yönündedir.  Aile içinde bile, &amp;ldquo;Ruşen amcanın oğlu Sedat&amp;rdquo; gibi çalışkan insanlar övülürken, ebeveynlerimiz tembelliğimizden dolayı bizlere çemkirir.&lt;/p&gt;
-
-&lt;p&gt;Sıkça yapılan bir hata, tembellik ile sorumsuzluğu karıştırmak&amp;hellip; Aslında, tembel olmak hiçbir şey yapmamak anlamına gelmiyor, sadece bir işi halletmenin daha kolay bir yolunu bulup, çok fazla çaba harcamaktan kaçınmak anlamına geliyor.&lt;/p&gt;
-
-&lt;p&gt;İş programlamaya geldiğinde, tembellik özellikle avantajlı oluyor.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Kod yazmaktan kaçınmak&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Tembel bir insan olarak, gereksiz kod yazmaktan özellikle kaçınmaya çalışıyorum.&lt;/p&gt;
-
-&lt;p&gt;Öncelikle, kod yazmak çok kolay bir iş değil. Birkaç metot içeren basit bir uygulama yazmak bile, azımsanmayacak miktarda bir odaklanma gerektiriyor. Özellikle proje büyüdükçe, eklenen her satır kodun uygulamayı bozma ihtimali var. Kod yazmak, mümkün mertebe kaçınılması gereken, nahoş bir aktivite.&lt;/p&gt;
-
-&lt;p&gt;Kod yazmaktan kaçınmak için, öncelikle sorunu iyi değerlendirmek gerekiyor. Müşteriden bir istek geldiğinde ya da siz bir eksiklik fark edip, ekleme yapmanız gerektiğini düşündüğünüzde önce bir soluklanmanız ve sorunu çözmek için kod yazmak zorunda mısınız diye düşünmeniz gerekiyor. Pek çok defa, müşteri tarafından çok ciddi sorun olduğu düşünülen konuları, biraz düşünme ve ikna yöntemiyle hiç kod yazmadan çözdüğüm olmuştur.&lt;/p&gt;
-
-&lt;p&gt;Bir diğer yöntem ise, kodu güzel modüllere ayırmak ve gelecekte oluşturduğunuz modülleri, etkili bir şekilde kullanmak. Bu nedenle kodunuzu güzel bir şekilde modüllere ayırmalı, yazılmış kodları mümkün olduğunca yeniden kullanmaya odaklanmalısınız.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Doküman: sıkıcı ama gerekli&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Kod yazıldıktan sonra birkaç ay içinde, o kodun ne yaptığını hatırlayan kimse kalmıyor. Bu süre uzadıkça, o kodu yazan kişinin kimliği bile anonimleşiyor. Bir gün bu tuhaf, anonimleşmiş, artık kimsenin hatırlamadığı kod parçaları hakkında, bir değişiklik isteği, hata ya da bir soru geliyor. Bu problemin muhatabı olan zat-ı şahanelerinin ise, dokümansız yabana gönderdiği bu kod parçasından dolayı başı belaya giriyor.&lt;/p&gt;
-
-&lt;p&gt;Böyle bir durumla karşılaştığınızda harcayacağınız çabayı bir düşünün. Kod okumak, kod yazmaktan bile zor bir iş ve tembel bir yazılımcı bunu minimize etmek zorunda.&lt;/p&gt;
-
-&lt;p&gt;Bunu ne yazık ki birkaç acı tecrübeyle öğrendim ve uzun zamandır yazdığım her &amp;ldquo;public&amp;rdquo; fonksiyon için, kesinlikle doküman yazmaktayım. Hatta çoğu zaman fonksiyonu yazmadan önce dokümanını hazırlıyorum ki daha sonra şeytana uyup, doküman yazmamazlık etmeyeyim.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Ona minik testler yazın&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Yeni bir proje veya özellik üzerinde çalışıyorsunuz. Ve bam! Sizin geliştirdiğiniz bir özellik düzgün çalışmıyor. Elbette geliştirdikten sonra her şey düzgün çalışıyor mu diye test etmiştiniz ve sorun olmadığını görüp, kodunuzu göndermiştiniz. Ancak, projenin &amp;ldquo;dıdısının dıdısında&amp;rdquo;, sizin geliştirdiğiniz kısımla tamamen alakasız olan bilinmeyen bir köşede yapılmış ufak bir değişiklik, sizin kodunuzu patlattı.&lt;/p&gt;
-
-&lt;p&gt;Bu tarz sorunları engellemek için dâhiyane bir çözüm var: Test otomasyonu. Eğer yazdığınız özellikleri %100 kapsayan testleriniz varsa yapılan değişiklikler nedeniyle bozulan özellikler anında tespit edilebilecek, çözülebilecek ve sizin başınızı ağrıtmayacak.&lt;/p&gt;
-
-&lt;p&gt;Kod içerisinde hata bulmak ve düzeltmek, özellikle zaman geçtikçe daha da zorlaşır. Hatanın yapıldığı andan çözümüne kadar geçen zaman, hatanın doğru bir şekilde çözülememesi ihtimalini arttırır. Bu nedenle kod ilk yazıldığı anda mümkün olduğunca farklı açıdan test edilmeli ve hata yapma olasılığı en aza indirilmelidir. Bu sizi gelecekte çok daha fazla çabadan kurtaracaktır.&lt;/p&gt;
-
-&lt;p&gt;Bu tavsiyeler, fi tarihinde okuduğum bir &lt;em&gt;Quora&lt;/em&gt; cevabından esinlenildi ancak fi tarihinde olduğundan dolayı kaynak gösteremeyeceğim. Arada bir &amp;ldquo;sorumsuzluk&amp;rdquo; edip uygulamasam da, genellikle uyguluyorum ve beni ciddi baş ağrılarından kurtardığını söyleyebilirim.&lt;/p&gt;
-
-&lt;p&gt;Bu yazıyı daha önce de bloğumda yayınlamıştım. Bir gözden geçirip, yeni bloğumda tekrar yayınlıyorum.&lt;/p&gt;
-</description>
+      <description>Tembellik, toplum genelinde olumsuz bir özellik olarak değerlendirilir. Genel inanış, çok çalışmanın başarı için kaçınılmaz olduğu yönündedir. Aile içinde bile, &amp;ldquo;Ruşen amcanın oğlu Sedat&amp;rdquo; gibi çalışkan insanlar övülürken, ebeveynlerimiz tembelliğimizden dolayı bizlere çemkirir.
+Sıkça yapılan bir hata, tembellik ile sorumsuzluğu karıştırmak&amp;hellip; Aslında, tembel olmak hiçbir şey yapmamak anlamına gelmiyor, sadece bir işi halletmenin daha kolay bir yolunu bulup, çok fazla çaba harcamaktan kaçınmak anlamına geliyor.
+İş programlamaya geldiğinde, tembellik özellikle avantajlı oluyor.</description>
     </item>
     
     <item>
@@ -363,80 +67,9 @@
       <pubDate>Tue, 31 Jan 2017 17:52:07 +0300</pubDate>
       
       <guid>https://ugurhicyilmam.github.io/blog/anki-metodu/</guid>
-      <description>
-
-&lt;p&gt;Programlama geniş bir alan ve hiç şüphe yok ki uzmanlaşmak uzun zaman alıyor. Eğer benim gibi bu alana geç başlamış ve üstüne üstlük sabırsızsanız, bu yazı tam sizlik.&lt;/p&gt;
-
-&lt;p&gt;Programlamaya ilk başladığım yılda pek çok kitap okudum, video izledim, kütüphane öğrendim. Yılın sonunda üzülerek farkettim ki, öğrendiklerimin %90&amp;rsquo;ı buharlaşmış. Aklımda yalnızca sık kullandığım %10&amp;rsquo;luk kısım kalmış.&lt;/p&gt;
-
-&lt;p&gt;Unutmanın önüne geçebilmek için ilk olarak defter tutmaya başladım. Planım belirli aralıklarla tuttuğum notların üzerinden geçerek unutmayı en aza indirmekti. Not tutarak harcadığım onlarca verimsiz saatten sonra acı gerçeği farkettim: bu notları asla tekrar etmeyecektim.&lt;/p&gt;
-
-&lt;p&gt;Not tutmak ile en önemli sorun, unutmamak için tüm notları tekrar etmek zorunda olmanız.&lt;/p&gt;
-
-&lt;p&gt;Not tutup tekrar etmek yerine, sadece unuttuğum notları tekrar etmemi sağlayacak bir sistem olup olmadığını merak ettim ve araştırmaya koyuldum. Küçük ama işini mükemmel yapan sihirli uygulamayı bulmam uzun zaman almadı: &lt;strong&gt;Anki&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;anki-nedir&#34;&gt;Anki Nedir?&lt;/h2&gt;
-
-&lt;p&gt;Anki&amp;rsquo;nin çalışma prensibi çok basit: bilgi kartları oluşturuyorsunuz ve Anki de bunları size belirli aralıklarla soruyor. Kolay bilinen kartları daha uzun aralıklarla, zorları ise daha sık aralıklarla soruyor.&lt;/p&gt;
-
-&lt;p&gt;Anki&amp;rsquo;nin, masaüstü uygulaması, web sitesi ve hem iOS hem de Android için mobil uygulamaları mevcut. Üstelik beleş!&lt;/p&gt;
-
-&lt;p&gt;Beleş derken, ne yazık ki iOS kullanıcıları olarak burada da kazıklanıyoruz. Diğer tüm platformlar ücretsizken, iOS üzerinde kullanmak 65₺ (fiyat güncel değildir).&lt;/p&gt;
-
-&lt;h2 id=&#34;çalışma-yöntemim&#34;&gt;Çalışma Yöntemim&lt;/h2&gt;
-
-&lt;p&gt;Anki ile çalışmaya başladıktan sonra, kendime ihtiyaçlarıma uygun bir çalışma rutini geliştirmem biraz zaman aldı. Rutinimi geliştirirken, konuyla ilgili bazı kaynaklardan da faydalandım. Örneğin &lt;a href=&#34;https://www.jackkinsella.ie/articles/janki-method&#34;&gt;Janki Method&lt;/a&gt; bunlardan birisi.&lt;/p&gt;
-
-&lt;p&gt;Uzun süren deneme yanılmalardan sonra, kendime göre bazı Anki ilkeleri geliştirdim. Bu ilkeleri düzgün bir şekilde uyguladığımda, yöntemin başarılı bir şekilde çalıştığını gördüm.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;İlke 1: Her sabah Anki yap.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Bir gün bile ara verdiğimde, Anki yapmaya dair motivasyonumun dramatik bir şekilde düştüğünü farkettiğimden bu yana, devamlılığın en önemli şeylerden biri olduğuna ikna oldum. Bu nedenle, günlük rutinimde ilk yaptığım iş, kartlarımı tekrar etmek oluyor.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;İlke 2: Kartların amacı belli bir kavramı hatırlatmak olsun, kendini zorlamak değil.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Anki destelerinin amacı unutmayı en aza indirgemek, sizi sınamak değil. Bu nedenle, eklenen kartların mümkün olduğunca basit olması gerekiyor.&lt;/p&gt;
-
-&lt;p&gt;Linux&amp;rsquo;ta ufak bir komutu hatırlamak için eklediğim örnek bir kart şu şekilde:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://ugurhicyilmam.github.io/post_images/example-simple-card.PNG&#34; alt=&#34;Example linux card&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Dediğim gibi, bir kartın amacı sizi sınamak değil, yalnızca bir kavramı hatırlamanıza yardımcı olmak. Bir kartı cevaplandırmak eğer 3-4 saniyeden fazla sürüyorsa, bilin ki kartlarınız fazla zor.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;İlke 3: Her şeyi hatırlamaya çalışma, yalnızca önemli şeyleri hatırlamaya çalış.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Programlama pratik bir alan. Pratikte kullanmayacağınız bir bilginin destenizde yer alması manasız. Ben genelde bir kitaptan öğrenirken, aynı zamanda önemli gördüğüm şeyler için Anki kartı oluşturuyorum. Daha sonra deste yeterince büyüdüğünde tekrar etmeye başlıyorum. Belli bir zaman sonra tekrar ettiğim bir karttaki bilgiye, hiçbir zaman ihtiyaç duymadığımı farkedersem, acımadan kartı imha ediyorum.&lt;/p&gt;
-
-&lt;h2 id=&#34;anki-nin-kullanımı&#34;&gt;Anki&amp;rsquo;nin Kullanımı&lt;/h2&gt;
-
-&lt;p&gt;Bu bölüme kadar geldiğinize göre Anki&amp;rsquo;ye bir şans verme kararı aldınız. Güzel, kendiniz için doğru bir adım attınız. İyi programcılara ihtiyacımız var.&lt;/p&gt;
-
-&lt;h5 id=&#34;birinci-adım&#34;&gt;Birinci adım&lt;/h5&gt;
-
-&lt;p&gt;İlk yapmanız gereken şey &lt;a href=&#34;https://ankiweb.net&#34;&gt;Ankiweb&lt;/a&gt; sitesine girip bir hesap oluşturmak. Bu hesap, kartlarınızın bulutta depolanmasına yarayacak.&lt;/p&gt;
-
-&lt;h5 id=&#34;ikinci-adım&#34;&gt;İkinci adım&lt;/h5&gt;
-
-&lt;p&gt;Hesabınızı oluşturduktan sonra, &lt;a href=&#34;https://apps.ankiweb.net/&#34;&gt;şu adrese&lt;/a&gt; giderek Anki&amp;rsquo;nin masaüstü uygulamasını indirin. Uygulamayı kurup, hesabınıza giriş yapın.&lt;/p&gt;
-
-&lt;h5 id=&#34;üçüncü-adım&#34;&gt;Üçüncü adım&lt;/h5&gt;
-
-&lt;p&gt;Mobil uygulamayı yükleyin. Android için &lt;a href=&#34;https://play.google.com/store/apps/details?id=com.ichi2.anki&amp;amp;hl=tr&#34;&gt;AnkiDroid&lt;/a&gt;, iOS için &lt;a href=&#34;https://itunes.apple.com/us/app/ankimobile-flashcards/id373493387?mt=8&#34;&gt;AnkiMobile Flashcards&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;iOS uygulaması ne yazık ki ücretli ve açıkçası biraz tuzlu. Ancak sorun yok, kart tekrarı için masaüstü uygulamasını ve web sitesini kullanabilirsiniz.&lt;/p&gt;
-
-&lt;h5 id=&#34;dördüncü-adım&#34;&gt;Dördüncü adım&lt;/h5&gt;
-
-&lt;p&gt;Bir deste oluşturun ve kart oluşturmaya başlayın.&lt;/p&gt;
-
-&lt;p&gt;Kart oluşturma ekranı şu şekilde:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://ugurhicyilmam.github.io/post_images/anki-add-card.PNG&#34; alt=&#34;Add card to anki&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Ön tarafa soru, arka tarafa cevabı geliyor. Sorunun kavramına göre etiket eklemek de daha sonra belli bir kategorideki kartları, ayrı bir desteye taşırken yardımcı oluyor.&lt;/p&gt;
-
-&lt;p&gt;Ayrıca keşfetmemin zaman aldığı, Anki destelerine görsel eklemek ile ilgili ufak bir bilgi vereyim. Windows&amp;rsquo;un snipping tool&amp;rsquo;u ile ekranın belli bir kısmını seçtiğinizde, seçilen resim otomatik olarak clipboard içine alınıyor. Anki&amp;rsquo;de &amp;ldquo;Ön&amp;rdquo; veya &amp;ldquo;Arka&amp;rdquo; alanlarından birine bu resmi eklemek için, direkt olarak Ctrl+V yapabilirsiniz.&lt;/p&gt;
-</description>
+      <description>Programlama geniş bir alan ve hiç şüphe yok ki uzmanlaşmak uzun zaman alıyor. Eğer benim gibi bu alana geç başlamış ve üstüne üstlük sabırsızsanız, bu yazı tam sizlik.
+Programlamaya ilk başladığım yılda pek çok kitap okudum, video izledim, kütüphane öğrendim. Yılın sonunda üzülerek farkettim ki, öğrendiklerimin %90&amp;rsquo;ı buharlaşmış. Aklımda yalnızca sık kullandığım %10&amp;rsquo;luk kısım kalmış.
+Unutmanın önüne geçebilmek için ilk olarak defter tutmaya başladım. Planım belirli aralıklarla tuttuğum notların üzerinden geçerek unutmayı en aza indirmekti.</description>
     </item>
     
   </channel>

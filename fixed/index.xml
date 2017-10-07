@@ -2,12 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fixed on Bir yazılımcının notları...</title>
-    <link>https://ugurhicyilmam.github.io/fixed/index.xml</link>
+    <link>https://ugurhicyilmam.github.io/fixed/</link>
     <description>Recent content in Fixed on Bir yazılımcının notları...</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>TR</language>
     <lastBuildDate>Tue, 17 Jan 2017 10:37:50 +0300</lastBuildDate>
-    <atom:link href="https://ugurhicyilmam.github.io/fixed/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://ugurhicyilmam.github.io/fixed/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Hakkımda</title>
@@ -15,24 +17,10 @@
       <pubDate>Tue, 17 Jan 2017 10:37:50 +0300</pubDate>
       
       <guid>https://ugurhicyilmam.github.io/fixed/about/</guid>
-      <description>&lt;p&gt;Merhaba, ben Uğur Hiçyılmam.&lt;/p&gt;
-
-&lt;p&gt;Accenture Endüstriyel Yazılım Çözümleri firmasında yazılım mühendisi olarak çalışmaktayım. Ayrıca Boğaziçi Üniversitesi Yazılım Mühendisliği bölümünde yüksek lisans yapmaktayım.&lt;/p&gt;
-
-&lt;p&gt;İlk bilgisayarımı edindiğim 12 yaşımdan bu yana, programlama hobi anlamında her zaman hayatımda yer almış olsa da bu işi profesyonel anlamda yapmaya başlamam yalnızca 3 yıllık bir deneyim.&lt;/p&gt;
-
-&lt;p&gt;Lisans eğitimimi Yıldız Teknik Üniversitesi İktisat bölümünde aldım. Birkaç ufak iş deneyiminden sonra bu alanın bana göre olmadığını fark edip, hobimi meslek edinme kararı aldım. Yani, 23 yaşında, işsiz, kararsız ve bolca boş vakti olan bir insan olarak, 6 yaşında okula ilk adım attığım andan itibaren başlayarak 23 yaşıma kadar sürmüş &amp;ldquo;17&amp;rdquo; yıllık bir aradan sonra, kendi öğrenimimi kendi elime almaya karar verdim. O andan itibaren kendimi programlama alanında geliştirmeye başladım.&lt;/p&gt;
-
-&lt;p&gt;Programlama alanında profesyonel anlamda ilerleme kararı almamın üzerinden 3 yıl geçti ve 1 yıldan fazladır da aktif olarak sektörün içinde çalışıyorum.&lt;/p&gt;
-
-&lt;p&gt;Son 2 yıldır yoğunluklu olarak Java ve Spring ekosistemi ile çalışıyorum. Bu bilinçli olarak yaptığım bir seçimden ziyade okulda yaptığım projelerin kısıtlamalarından kaynaklansa da bu teknolojilerle çalışmaktan keyif aldığımı söylemeliyim. Öte yandan, iş hayatında Java ve Spring kullanıyor olsam da boş kalan zamanlarımı yeni teknolojileri ve son trendleri deneyerek geçirmeye çalışıyorum.&lt;/p&gt;
-
-&lt;p&gt;Bu blogta çoğunlukla en tecrübeli olduğum alanlar olan Java ve özellikle Spring ekosistemiyle ilgili yazmaya çalışacağım. Zaman zaman genel bilgisayar bilimi ve yazılım mühendisliği alanlarında da yazacağım.&lt;/p&gt;
-
-&lt;p&gt;Sorularınız, önerileriniz veya fikirleriniz için, sosyal medya kanalları üzerinden bana erişebilirsiniz.&lt;/p&gt;
-
-&lt;p&gt;Uğur Hiçyılmam&lt;/p&gt;
-</description>
+      <description>Merhaba, ben Uğur Hiçyılmam.
+Accenture Endüstriyel Yazılım Çözümleri firmasında yazılım mühendisi olarak çalışmaktayım. Ayrıca Boğaziçi Üniversitesi Yazılım Mühendisliği bölümünde yüksek lisans yapmaktayım.
+İlk bilgisayarımı edindiğim 12 yaşımdan bu yana, programlama hobi anlamında her zaman hayatımda yer almış olsa da bu işi profesyonel anlamda yapmaya başlamam yalnızca 3 yıllık bir deneyim.
+Lisans eğitimimi Yıldız Teknik Üniversitesi İktisat bölümünde aldım. Birkaç ufak iş deneyiminden sonra bu alanın bana göre olmadığını fark edip, hobimi meslek edinme kararı aldım.</description>
     </item>
     
   </channel>
